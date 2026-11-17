@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <!-- BOND mark: a thin crystal (red) bonded on a substrate figured to a curve (black); white lines are the lattice planes that follow the curvature -->
+  <rect width="48" height="48" rx="4" fill="#121213"/>
+  <path d="M7 41 V26 Q24 16 41 26 V41 Z" fill="#ffffff" fill-opacity=".16"/>
+  <path d="M7 22.5 Q24 12.5 41 22.5" fill="none" stroke="#c8102e" stroke-width="4.4" stroke-linecap="round"/>
+  <path d="M7 30.5 Q24 20.5 41 30.5 M7 36 Q24 26 41 36" fill="none" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-opacity=".7"/>
+</svg>
