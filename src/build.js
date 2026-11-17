@@ -12,7 +12,7 @@ const nw = s => esc(s).replace(/(\S+-\S+)/g, '<span class="nw">$1</span>');
 const V = Object.fromEntries(['base.css', 'bond.css', 'bond.js', 'stats.js'].map(f => [f, crypto.createHash('md5').update(fs.readFileSync(path.join(ROOT, f))).digest('hex').slice(0, 8)]));
 const CONTACT = 'andrea.mazzolari@unife.it';
 // The site's own visit counter (Cloudflare Worker, sources in ../bond-counter). Empty = not connected: no beacons are sent.
-const COUNTER = '';
+const COUNTER = 'https://bond-counter.bond-counter.workers.dev';
 
 const NAV = [['./', 'Home'], ['project.html', 'Project'], ['devices.html', 'Devices'], ['technology.html', 'Technology'], ['progress.html', 'Progress'], ['team.html', 'Team']];
 
