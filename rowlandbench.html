@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<script>document.documentElement.classList.replace('no-js', 'js');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RowlandBench · Crystal BOND</title>
+<meta name="description" content="RowlandBench, a desktop program for the design and simulation of X-ray spectrometers based on bent-crystal analysers: ray tracing, Takagi–Taupin reflectivity, bending strain, shape errors and tolerances.">
+<meta name="theme-color" content="#0e0e0f">
+<link rel="icon" href="img/logo.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/ibm-plex-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="base.css?v=a3d1f053">
+<link rel="stylesheet" href="bond.css?v=71e771d8">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Crystal BOND">
+<meta property="og:title" content="RowlandBench · Crystal BOND">
+<meta property="og:description" content="RowlandBench, a desktop program for the design and simulation of X-ray spectrometers based on bent-crystal analysers: ray tracing, Takagi–Taupin reflectivity, bending strain, shape errors and tolerances.">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="./"><img src="img/logos/infn-white.svg" alt="INFN" width="65" height="34"><span>Crystal BOND<small>CSN5 project · 2025–2027</small></span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    <nav class="nav-main" aria-label="Main">
+      <ul class="nav-links" id="menu">
+        <li><a href="./">Home</a></li>
+        <li><a href="project.html">Project</a></li>
+        <li><a href="devices.html">Devices</a></li>
+        <li><a href="technology.html">Technology</a></li>
+        <li><a href="progress.html">Progress</a></li>
+        <li><a href="rowlandbench.html" aria-current="page">RowlandBench</a></li>
+        <li><a href="team.html">Team</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="main">
+
+<section class="p-head on-dark">
+  <div class="p-head-text">
+    <p class="crumbs"><a href="./">Crystal BOND</a> / RowlandBench</p>
+    <h1>RowlandBench</h1>
+    <p>A desktop program for the design and simulation of <span class="nw">X-ray</span> spectrometers based on bent-crystal analysers, written in Ferrara.</p>
+  </div>
+  <div class="p-head-photo"><picture><source srcset="img/photos/rb-head.webp" type="image/webp"><img src="img/photos/rb-head.jpg" alt="The instrument response computed by RowlandBench for a spherically bent silicon analyser" fetchpriority="high"></picture></div>
+</section>
+<section class="sec white">
+  <div class="wrap split">
+    <div class="just">
+      <h2 class="h2 ruled">What it does</h2>
+      <p>The energy resolu­tion of a bent-crystal analyser comes from several effects of comparable size: the size of the source, the Johann aberra­tion, the re­flec­tiv­i­ty curve of the bent crystal, the strain left by bending, the errors of shape and the pixels of the de­tec­tor. Choosing a design means weighing them to­geth­er.</p>
+      <p>RowlandBench does these calcula­tions in one place. It traces rays from an extended source to the analyser and the de­tec­tor, and combines them with the <b>Takagi–Taupin re­flec­tiv­i­ty</b> of the bent crystal, the <b>in-plane strain</b> of the bonded wafer com­put­ed by finite el­e­ments, and <b>shape errors</b> taken from synthetic or mea­sured in­ter­fer­om­e­ter maps. Integrat­ing and position-resolv­ing de­tec­tors with finite pixels are modelled.</p>
+      <p>For each design it reports the energy resolu­tion with its statistical uncertainty, a budget of the contribu­tions, and how resolu­tion and ef­fi­cien­cy respond to fabrica­tion and align­ment tolerances. A model of the incident-beam mono­chromator gives the elastic line of res­o­nant in­elas­tic <span class="nw">X-ray</span> scatter­ing.</p>
+      <p>For BOND it is the tool to design the bonded analysers in quartz, lithium niobate and ger­ma­nium, and to see how much of their resolu­tion is lost to the shape of the bonded crystal.</p>
+    </div>
+    <figure class="figcard"><img src="img/fig/rb-window.webp" alt="Main window of RowlandBench: settings on the left, instrument response and reflectivity curve on the right" loading="lazy"><figcaption>The main window after a run: the settings pages and the sketch of the Rowland geometry on the left; on the right the instrument response, with and without the shape error, and the reflectivity curve of the bent crystal.</figcaption></figure>
+  </div>
+</section>
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="h2 ruled">What it covers</h2>
+      <p>Analysers, materials and readouts that can be simulated.</p>
+    </div>
+    <div class="table-wrap"><table class="spec-table" style="min-width:560px">
+      <tbody>
+        <tr><th scope="row">Analysers</th><td>Johann (cylindrical, spherical, toroidal), Johansson, diced, strip-bent, sliced, von Hámos; asymmetric reflections</td></tr>
+        <tr><th scope="row">Arrays</th><td>up to 72 crystals (12 columns, 8 rows), with a common or separate focus and individual misalignments</td></tr>
+        <tr><th scope="row">Materials</th><td>Si, Ge, α-quartz, sapphire, GaAs, LiF, diamond, InSb, LiNbO₃</td></tr>
+        <tr><th scope="row">Imperfections</th><td>in-plane bending strain, finite-element contact of the wafer pressed on its substrate, synthetic or interferometric shape-error maps</td></tr>
+        <tr><th scope="row">Detectors</th><td>integrating or position-resolving, with finite pixels</td></tr>
+        <tr><th scope="row">Studies</th><td>parameter sweeps with response surfaces, tolerance studies, ranking of the analysers that reach a working energy</td></tr>
+        <tr><th scope="row">Output</th><td>energy resolution (FWHM) with uncertainty, acceptance, spot on the detector, resolution budget; export as CSV, JSON, PNG, HTML and PDF</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+<section class="sec white">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="h2 ruled">Results of a run</h2>
+      <p>Three of the result views, for the same analyser.</p>
+    </div>
+    <div class="rb-figs">
+      <figure class="figcard"><img src="img/fig/rb-budget.webp" alt="Resolution budget of a run" loading="lazy"><figcaption><b>Resolution budget of a run.</b> The same rays traced with one effect added at a time: geometry with a point source, source size, intrinsic reflectivity curve, in-plane strain of the bent wafer, shape error. Here a 1 m spherically bent Si(555) analyser at 9982 eV.</figcaption></figure>
+      <figure class="figcard"><img src="img/fig/rb-rays.webp" alt="Ray paths" loading="lazy"><figcaption><b>Ray paths.</b> The Rowland plane to scale with the sampled rays, shaded by their energy shift, and the reflected bundle near the detector in the dispersive and sagittal directions.</figcaption></figure>
+      <figure class="figcard"><img src="img/fig/rb-maps.webp" alt="Maps over the crystal" loading="lazy"><figcaption><b>Maps over the crystal.</b> Over the 100 mm face of the analyser: energy shift from the in-plane strain of the ideally bent wafer, a synthetic shape error, the strain with the shape error, and the mean reflected energy with all effects.</figcaption></figure>
+    </div>
+  </div>
+</section>
+<section class="sec">
+  <div class="wrap about">
+    <div class="just">
+      <h2 class="h2 ruled">Implementation and availability</h2>
+      <p>RowlandBench is written in Python, with a Qt inter­face (PySide6), plots in Matplotlib and a three-di­men­sion­al view in PyVista. Crystal data come from xraylib, the re­flec­tiv­i­ty of bent crys­tals from the Takagi–Taupin solver pyTTE, <span class="nw">X-ray</span> tube spectra from SpekPy. Its results are com­pared with published measure­ments and calcula­tions for strip-bent, diced and asymmetric spheri­cally bent analysers.</p>
+      <p>The program is distributed as an installer for 64-bit Windows, under a free academic licence for universities and public research institu­tions. The article that describes it is in prepara­tion.</p>
+      <p class="about-more"><a class="arrow" href="mailto:andrea.mazzolari@unife.it?subject=RowlandBench">Ask for RowlandBench</a></p>
+    </div>
+    <dl class="factsheet" aria-label="RowlandBench data">
+      <dt>Author</dt><dd>Andrea Mazzolari, University of Ferrara and INFN Ferrara</dd>
+      <dt>Language</dt><dd>Python, Qt 6 interface</dd>
+      <dt>Platform</dt><dd>Windows, 64 bit</dd>
+      <dt>Licence</dt><dd>free academic licence</dd>
+      <dt>Reference</dt><dd>article in preparation</dd>
+    </dl>
+  </div>
+</section>
+</main>
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <p class="foot-lead">Samples, tests, collaborations: write to the project coordinator.</p>
+        <a class="mail" href="mailto:andrea.mazzolari@unife.it">andrea.mazzolari@unife.it</a>
+      </div>
+      <div class="foot-logos">
+        <img src="img/logos/infn.svg" alt="INFN" width="107" height="56" loading="lazy">
+      </div>
+    </div>
+  </div>
+  <div class="foot-bar">
+    <div class="wrap foot-bottom">
+      <p>Crystal BOND, a research project of INFN National Scientific Committee 5 · INFN Ferrara (coordination), Laboratori Nazionali di Legnaro, INFN Trieste, Laboratori Nazionali di Frascati</p>
+      <p>Ferrara unit: <a href="https://crystalab.unife.it/">Crystal Lab Ferrara</a> · Visits are counted anonymously, without cookies</p>
+    </div>
+  </div>
+</footer>
+<script src="bond.js?v=6ef8f2f8" defer onerror="document.documentElement.classList.replace('js', 'no-js')"></script>
+</body>
+</html>

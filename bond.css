@@ -352,3 +352,8 @@ body::before { background: #0b0b0d; }
   .brand small { font-size: .95rem; margin-top: -2px; }
   .brand img { height: 40px; }
 }
+/* RowlandBench: result views */
+.rb-figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 24px; align-items: start; }
+.rb-figs .figcard img { width: 100%; height: auto; }
+.rb-figs figcaption b { color: var(--ink); }
+.p-head-photo img[src*="rb-head"] { object-position: left center; }

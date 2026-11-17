@@ -61,3 +61,18 @@
     if (replay) replay.addEventListener('click', run);
   }
 })();
+
+// Anonymous visit counter: GoatCounter (no cookies, no personal data), one hit per page view, sent by this code rather
+// than GoatCounter's script, as on the Crystal Lab site. Only the published site counts, not local previews.
+// Statistics: https://<COUNTER>.goatcounter.com
+(function () {
+  var COUNTER = 'crystal-bond';
+  if (location.hostname !== 'crystal-bond.github.io' || navigator.webdriver) return;
+  var url = 'https://' + COUNTER + '.goatcounter.com/count' +
+    '?p=' + encodeURIComponent(location.pathname + location.search) +
+    '&t=' + encodeURIComponent(document.title) +
+    '&r=' + encodeURIComponent(document.referrer) +
+    '&s=' + [screen.width, screen.height, window.devicePixelRatio || 1].join(',') +
+    '&rnd=' + Math.random().toString(36).slice(2);
+  if (!(navigator.sendBeacon && navigator.sendBeacon(url))) new Image().src = url;
+})();
