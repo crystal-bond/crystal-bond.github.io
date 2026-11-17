@@ -12,7 +12,7 @@ const nw = s => esc(s).replace(/(\S+-\S+)/g, '<span class="nw">$1</span>');
 const V = Object.fromEntries(['base.css', 'bond.css', 'bond.js'].map(f => [f, crypto.createHash('md5').update(fs.readFileSync(path.join(ROOT, f))).digest('hex').slice(0, 8)]));
 const CONTACT = 'andrea.mazzolari@unife.it';
 
-const NAV = [['./', 'Home'], ['project.html', 'Project'], ['devices.html', 'Devices'], ['technology.html', 'Technology'], ['progress.html', 'Progress'], ['rowlandbench.html', 'RowlandBench'], ['team.html', 'Team']];
+const NAV = [['./', 'Home'], ['project.html', 'Project'], ['devices.html', 'Devices'], ['technology.html', 'Technology'], ['progress.html', 'Progress'], ['team.html', 'Team']];
 
 const nav = current => `<a class="skip" href="#main">Skip to content</a>
 <header class="nav">
