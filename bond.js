@@ -68,6 +68,8 @@
 (function () {
   var base = document.documentElement.getAttribute('data-counter');
   if (!base || location.hostname !== 'crystal-bond.github.io' || navigator.webdriver) return;
+  // the owner's browser is left out: the flag is set by the statistics page once the key has been accepted
+  try { if (localStorage.getItem('bond-no-count') === '1') return; } catch (e) {}
   var send = function (data) {
     var payload = JSON.stringify(data);
     try { if (navigator.sendBeacon && navigator.sendBeacon(base + '/hit', payload)) return; } catch (e) {}

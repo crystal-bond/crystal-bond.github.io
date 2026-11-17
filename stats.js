@@ -102,6 +102,16 @@
      ranked('Devices', 'Visitors', d.devices), ranked('Browsers', 'Visitors', d.browsers), ranked('Systems', 'Visitors', d.systems), ranked('Languages', 'Visitors', d.languages)]
       .forEach(function (b) { grid.appendChild(b); });
     root.appendChild(grid);
+    // as on the DICEFLOW counter, the owner is not counted: opening this page with the right key marks this browser,
+    // and the pages of the site then send no beacons from it; the choice can be reversed here
+    var mine = '1'; try { mine = localStorage.getItem('bond-no-count'); if (mine === null) { mine = '1'; localStorage.setItem('bond-no-count', '1'); } } catch (e) {}
+    var own = el('p', 'stats-own'), toggle = el('button', 'stats-forget', ''); toggle.type = 'button';
+    var paint = function () {
+      own.textContent = mine === '1' ? 'Your visits from this browser are not counted. ' : 'Your visits from this browser are counted. ';
+      toggle.textContent = mine === '1' ? 'Count them' : 'Do not count them'; own.appendChild(toggle);
+    };
+    toggle.addEventListener('click', function () { mine = mine === '1' ? '0' : '1'; try { localStorage.setItem('bond-no-count', mine); } catch (e) {} paint(); });
+    paint(); root.appendChild(own);
     var out = el('button', 'stats-forget', 'Forget the key on this computer'); out.type = 'button';
     out.addEventListener('click', function () { key = ''; try { localStorage.removeItem('bond-stats-key'); } catch (e) {} gate(); });
     root.appendChild(out);
