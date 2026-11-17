@@ -9,8 +9,10 @@ const FIG = { ...require('./figures'), ...require('./figures-bond') };
 const { DEVICES, UNITS, WPS, month, MILESTONES, STATUS, SUPPORT, P2026, P2025, RADIUS } = require('./content');
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const nw = s => esc(s).replace(/(\S+-\S+)/g, '<span class="nw">$1</span>');
-const V = Object.fromEntries(['base.css', 'bond.css', 'bond.js'].map(f => [f, crypto.createHash('md5').update(fs.readFileSync(path.join(ROOT, f))).digest('hex').slice(0, 8)]));
+const V = Object.fromEntries(['base.css', 'bond.css', 'bond.js', 'stats.js'].map(f => [f, crypto.createHash('md5').update(fs.readFileSync(path.join(ROOT, f))).digest('hex').slice(0, 8)]));
 const CONTACT = 'andrea.mazzolari@unife.it';
+// The site's own visit counter (Cloudflare Worker, sources in ../bond-counter). Empty = not connected: no beacons are sent.
+const COUNTER = '';
 
 const NAV = [['./', 'Home'], ['project.html', 'Project'], ['devices.html', 'Devices'], ['technology.html', 'Technology'], ['progress.html', 'Progress'], ['team.html', 'Team']];
 
@@ -74,7 +76,7 @@ function page(file, title, desc, body, cls = '') {
     .replace(/<a href="(https?:\/\/[^"]+)"/g, '<a href="$1" target="_blank" rel="noopener"')
     .replace(/>([^<]*)</g, (m, t) => '>' + t.replace(/ · /g, ' · ') + '<');
   const html = `<!doctype html>
-<html lang="en" class="no-js">
+<html lang="en" class="no-js"${COUNTER ? ` data-counter="${COUNTER}"` : ''}>
 <head>
 <meta charset="utf-8">
 <script>document.documentElement.classList.replace('no-js', 'js');</script>
@@ -462,6 +464,21 @@ ${RB_FIGS.map(([f, t, c]) => `      <figure class="figcard"><img src="img/fig/${
     </dl>
   </div>
 </section>`);
+
+// ---------------------------------------------------------------- statistics (private, not in the menu, not indexed)
+page('stats.html', 'Visit statistics · Crystal BOND', 'Visit statistics of the Crystal BOND site.', `
+<section class="p-head on-dark stats-head">
+  <div class="p-head-text">
+    <p class="crumbs"><a href="./">Crystal BOND</a> / Statistics</p>
+    <h1>Visit statistics</h1>
+    <p>Counted by the site's own counter, without cookies. This page is for the project coordinator and needs a key.</p>
+  </div>
+</section>
+<section class="sec white">
+  <div class="wrap" id="stats"><noscript><p class="stats-note">This page needs JavaScript.</p></noscript></div>
+</section>
+<script src="stats.js?v=${V['stats.js']}" defer></script>`);
+fs.writeFileSync(path.join(ROOT, 'stats.html'), fs.readFileSync(path.join(ROOT, 'stats.html'), 'utf8').replace('<meta name="description"', '<meta name="robots" content="noindex, nofollow">\n<meta name="description"'));
 
 // ---------------------------------------------------------------- team
 page('team.html', 'Team · Crystal BOND', 'The four INFN units of BOND, its people, work-package leaders and the institutions that support the project.', `

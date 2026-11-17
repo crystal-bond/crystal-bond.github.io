@@ -62,17 +62,28 @@
   }
 })();
 
-// Anonymous visit counter: GoatCounter (no cookies, no personal data), one hit per page view, sent by this code rather
-// than GoatCounter's script, as on the Crystal Lab site. Only the published site counts, not local previews.
-// Statistics: https://<COUNTER>.goatcounter.com
+// Anonymous visit statistics, no cookies: beacons to the site's own counter (address in <html data-counter>, set by
+// src/build.js). One per page load, one per click on a contact link, one when the page is left (active seconds, deepest
+// scroll). Sent only from the published site; the statistics are read in stats.html.
 (function () {
-  var COUNTER = 'crystal-bond';
-  if (location.hostname !== 'crystal-bond.github.io' || navigator.webdriver) return;
-  var url = 'https://' + COUNTER + '.goatcounter.com/count' +
-    '?p=' + encodeURIComponent(location.pathname + location.search) +
-    '&t=' + encodeURIComponent(document.title) +
-    '&r=' + encodeURIComponent(document.referrer) +
-    '&s=' + [screen.width, screen.height, window.devicePixelRatio || 1].join(',') +
-    '&rnd=' + Math.random().toString(36).slice(2);
-  if (!(navigator.sendBeacon && navigator.sendBeacon(url))) new Image().src = url;
+  var base = document.documentElement.getAttribute('data-counter');
+  if (!base || location.hostname !== 'crystal-bond.github.io' || navigator.webdriver) return;
+  var send = function (data) {
+    var payload = JSON.stringify(data);
+    try { if (navigator.sendBeacon && navigator.sendBeacon(base + '/hit', payload)) return; } catch (e) {}
+    try { fetch(base + '/hit', { method: 'POST', body: payload, keepalive: true, credentials: 'omit' }).catch(function () {}); } catch (e) {}
+  };
+  if (/stats\.html$/.test(location.pathname)) return;
+  send({ t: 'view', p: location.pathname, r: document.referrer || '' });
+  [].forEach.call(document.querySelectorAll('a[href^="mailto:"]'), function (a) {
+    a.addEventListener('click', function () { send({ t: 'event', e: /RowlandBench/.test(a.getAttribute('href')) ? 'ask_rowlandbench' : 'mail_contact' }); });
+  });
+  var since = document.visibilityState === 'visible' ? Date.now() : 0, activeMs = 0, depth = 0, sent = false;
+  var measure = function () { var d = document.documentElement, h = d.scrollHeight - innerHeight; depth = Math.max(depth, h > 0 ? Math.round(100 * scrollY / h) : 100); };
+  addEventListener('scroll', measure, { passive: true }); measure();
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'visible') { since = Date.now(); return; }
+    if (since) { activeMs += Date.now() - since; since = 0; }
+    if (!sent) { sent = true; send({ t: 'engagement', s: Math.round(activeMs / 1000), d: Math.min(100, depth) }); }
+  });
 })();
