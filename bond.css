@@ -401,3 +401,7 @@ body::before { background: #0b0b0d; }
 .p-head-photo:has(img[src*="group-ferrara"]) { min-height: 360px; }
 /* the header is opaque: photos beside the title start under it, not behind it */
 @media (min-width: 861px) { .i-hero-photo, .p-head-photo { margin-top: calc(var(--nav-h) + env(safe-area-inset-top, 0px)); } }
+/* two photographs side by side in a technology panel: a tall one and a wide one */
+.tpanel .media.duo { grid-template-columns: 2fr 3fr; gap: 2px; place-items: stretch; background: var(--surface); }
+.tpanel .media.duo img { min-width: 0; min-height: 0; }
+.tpanel .media.duo img[src*="dicer-dad3351"] { object-position: center 28%; }
