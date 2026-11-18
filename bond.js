@@ -80,7 +80,7 @@
     for (var i = 0; i < pts.length; i++) for (var j = i + 1; j < pts.length; j++) {
       var dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y, d = Math.sqrt(dx * dx + dy * dy);
       if (d >= LINK) continue;
-      ctx.strokeStyle = 'rgba(255,255,255,' + (0.13 * (1 - d / LINK)).toFixed(3) + ')';
+      ctx.strokeStyle = 'rgba(255,255,255,' + (0.24 * (1 - d / LINK)).toFixed(3) + ')';
       ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y); ctx.stroke();
     }
     pts.forEach(function (p) {
