@@ -62,6 +62,66 @@
   }
 })();
 
+// Home: a light field of slowly drifting points joined by thin lines, behind the title in the black band. The canvas is
+// made here, so the page is unchanged without scripts; with reduced motion it is one still frame; it stops while the
+// header is off screen or the tab is hidden.
+(function () {
+  var hero = document.querySelector('.i-hero');
+  if (!hero || !window.requestAnimationFrame) return;
+  var cv = document.createElement('canvas'), ctx = cv.getContext && cv.getContext('2d');
+  if (!ctx) return;
+  cv.className = 'dust'; cv.setAttribute('aria-hidden', 'true'); hero.insertBefore(cv, hero.firstChild);
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var W = 0, H = 0, pts = [], LINK = 130, raf = 0, last = 0, seen = true;
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.lineWidth = 1;
+    for (var i = 0; i < pts.length; i++) for (var j = i + 1; j < pts.length; j++) {
+      var dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y, d = Math.sqrt(dx * dx + dy * dy);
+      if (d >= LINK) continue;
+      ctx.strokeStyle = 'rgba(255,255,255,' + (0.13 * (1 - d / LINK)).toFixed(3) + ')';
+      ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y); ctx.stroke();
+    }
+    pts.forEach(function (p) {
+      ctx.fillStyle = p.red ? 'rgba(200,16,46,.9)' : 'rgba(255,255,255,.36)';
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.2832); ctx.fill();
+    });
+  }
+  function size() {
+    var r = cv.getBoundingClientRect(), dpr = Math.min(2, window.devicePixelRatio || 1);
+    if (!r.width || !r.height) return;
+    W = r.width; H = r.height; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var n = Math.max(14, Math.min(56, Math.round(W * H / 13000)));
+    while (pts.length < n) {
+      var a = Math.random() * 6.2832, v = 5 + 7 * Math.random(), k = pts.length;
+      pts.push({ x: Math.random() * W, y: Math.random() * H, vx: v * Math.cos(a), vy: v * Math.sin(a), r: 1.1 + 0.8 * Math.random(), red: k % 12 === 5 });
+    }
+    pts.length = n;
+    pts.forEach(function (p) { p.x = Math.min(p.x, W); p.y = Math.min(p.y, H); });
+    draw();
+  }
+  function step(t) {
+    var dt = Math.min(0.05, (t - last) / 1000 || 0); last = t;
+    pts.forEach(function (p) {
+      p.x += p.vx * dt; p.y += p.vy * dt;
+      if (p.x < 0 || p.x > W) { p.vx = -p.vx; p.x = Math.max(0, Math.min(W, p.x)); }
+      if (p.y < 0 || p.y > H) { p.vy = -p.vy; p.y = Math.max(0, Math.min(H, p.y)); }
+    });
+    draw();
+    raf = requestAnimationFrame(step);
+  }
+  function run() {
+    cancelAnimationFrame(raf); raf = 0;
+    if (!still && seen && !document.hidden) { last = performance.now(); raf = requestAnimationFrame(step); }
+  }
+  size();
+  if ('ResizeObserver' in window) new ResizeObserver(size).observe(cv); else window.addEventListener('resize', size);
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { seen = es[es.length - 1].isIntersecting; run(); }).observe(hero);
+  document.addEventListener('visibilitychange', run);
+  run();
+})();
+
 // Anonymous visit statistics, no cookies: beacons to the site's own counter (address in <html data-counter>, set by
 // src/build.js). One per page load, one per click on a contact link, one when the page is left (active seconds, deepest
 // scroll). Sent only from the published site; the statistics are read in stats.html.
