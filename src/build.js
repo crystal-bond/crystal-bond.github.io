@@ -133,7 +133,7 @@ page('index.html', 'Crystal BOND · INFN research project on bonded bent crystal
     <p class="i-lead rise d2">A three-year INFN research project, 2025–2027, carried out by the Ferrara, Legnaro, Trieste and Frascati units and coordinated by INFN Ferrara.</p>
     <div class="actions rise d3"><a class="btn btn-white" href="project.html">The project</a><a class="btn btn-ghost" href="progress.html">Results</a></div>
   </div>
-  <div class="i-hero-photo"><img src="img/photos/hero-cleanroom-people.jpg" alt="Researchers at work in the Ferrara cleanroom" fetchpriority="high"></div>
+  <div class="i-hero-photo"><img src="img/photos/wafer-diced-close.jpg" alt="A silicon wafer diced into crystals, still on its dicing frame" fetchpriority="high"></div>
 </section>
 <section class="ticker" aria-label="BOND in figures">
   <div class="wrap">
@@ -314,9 +314,9 @@ const TECH = [
   { img: 'epoxy-uniform', alt: 'A uniform epoxy film spin-coated on a silicon wafer', id: 'adhesive', title: 'Thin adhesive films',
     text: 'While the bonding equipment was being procured we developed an interim route: spin-coating a thin epoxy film on the curved substrate, then laying the cut crystal on it. The first films dewetted into droplets seconds after spinning; after tests on six adhesives of different viscosity, on speed, acceleration, time, volume and plasma or UV surface activation, Epotek 301 gave films 2 µm thick and uniform within 150 nm, measured by interferometry. The first quartz and lithium niobate analysers were made this way.',
     specs: [['Adhesive', 'Epotek 301'], ['Film', '2 µm, uniform within 150 nm'], ['For', 'first A2.1 prototypes']], cap: 'A uniform epoxy film on a silicon wafer, measured by optical interferometry.' },
-  { img: 'linbo3-cubes', alt: 'A lithium niobate plate diced into 3 mm cubes', id: 'shape', title: 'Crystal preparation',
+  { img: 'dicing-room', alt: 'The dicing room in Ferrara, with the blade dicers', id: 'shape', title: 'Crystal preparation',
     text: 'Silicon for the LHC must be dislocation-free with a miscut below 100 µrad; commercial wafers start near 8000 µrad, so the miscut is corrected by magnetorheological polishing. Wafers are diced, ground and polished to remove the damaged layer that would start fractures during bending. Quartz and lithium niobate wear the diamond blade fast: a matrix of blade speed, feed, depth, coolant flow and mounting tape gave a recipe that cuts them cleanly.',
-    specs: [['Miscut', 'magnetorheological polishing, < 100 µrad'], ['Dicing', 'Disco blade dicers, Ferrara'], ['Wafers', 'up to 150 mm']], cap: 'A 3 mm lithium niobate plate cut into 3 mm cubes, the basis of lithium niobate analysers.' },
+    specs: [['Miscut', 'magnetorheological polishing, < 100 µrad'], ['Dicing', 'Disco blade dicers, Ferrara'], ['Wafers', 'up to 150 mm']], cap: 'The dicing room in Ferrara, where wafers are cut into crystals.' },
   { img: 'verifire', alt: 'The Zygo Verifire HDX Fizeau interferometer', id: 'measure', title: 'Characterisation',
     text: 'Bond strength is measured with standard tensile tests in Ferrara. The shape of every bent crystal is mapped by Fizeau interferometry and its lattice by high-resolution X-ray diffraction; cross-sections of the interface are studied by SEM, EDX and EBSD in Legnaro, and crystals by X-ray computed tomography in Frascati. Then come synchrotrons, ESRF and Elettra, and particle beams at CERN.',
     specs: [['Shape', 'Fizeau interferometry, profilometry'], ['Lattice', 'high-resolution XRD, X-ray topography at ESRF'], ['Interface', 'SEM, EDX, EBSD, ion milling, RBS (LNL)'], ['Volume', 'X-ray CT (LNF)']], cap: 'The Zygo Verifire HDX Fizeau interferometer in Ferrara.' },
@@ -329,7 +329,7 @@ const media = t => t.svg && t.plot ? `<div class="media plot pair">${t.svg}<img 
   : t.plot ? `<div class="media plot"><img src="img/fig/${t.plot}.png" alt="${esc(t.alt)}" loading="lazy"></div>`
   : `<div class="media"><img src="img/photos/${t.img}.jpg" alt="${esc(t.alt)}" loading="lazy"></div>`;
 page('technology.html', 'Technology · Crystal BOND', 'How BOND bends crystals: anodic and thermo-compression bonding on figured substrates, thin adhesive films, crystal preparation and characterisation.', `
-${pHead('Technology', 'Technology', 'Optical-grade substrates, bonding techniques from silicon micromachining, and the metrology to check the result.', 'interf-red2.jpg', 'A crystal on its mount, lit for interferometry')}
+${pHead('Technology', 'Technology', 'Optical-grade substrates, bonding techniques from silicon micromachining, and the metrology to check the result.', 'bonding-unit.jpg', 'A substrate bonding unit in the Ferrara laboratory')}
 <section class="sec">
   <div class="wrap tech">
 ${TECH.map(t => `    <article class="tpanel${t.wide ? ' wide' : ''}${t.side ? ' side' : ''}" id="${t.id}">
@@ -347,7 +347,7 @@ ${TECH.map(t => `    <article class="tpanel${t.wide ? ' wide' : ''}${t.side ? ' 
 // ---------------------------------------------------------------- progress
 const tlItem = ([img, t, p, alt], tag = '', key = false) => `      <li class="tl-item${img ? '' : ' noimg'}${key ? ' key' : ''}"><div class="tl-card">${img ? (img.startsWith('fig:') ? `<img class="figimg" src="img/fig/${img.slice(4)}.png" alt="${esc(alt)}" loading="lazy">` : `<img src="img/photos/${img}" alt="${esc(alt)}" loading="lazy">`) : ''}<div>${tag ? `<span class="unit-tag">${tag}</span>` : ''}<h3>${esc(t)}</h3><p>${esc(p)}</p></div></div></li>`;
 page('progress.html', 'Progress · Crystal BOND', 'What BOND has achieved: cylindrical Si(111) crystals for SOLEIL in 2026; in 2025 the first quartz analyser at 1.4 eV, thin adhesive films, silicon for the LHC and FEM models.', `
-${pHead('Progress', 'Progress', 'The first bonded analysers on a synchrotron, cylindrical silicon crystals ready for the next one, the models to design them and the bonding equipment.', 'wafer-objective2.jpg', 'A wafer under a microscope objective')}
+${pHead('Progress', 'Progress', 'The first bonded analysers on a synchrotron, cylindrical silicon crystals ready for the next one, the models to design them and the bonding equipment.', 'wafer-frame-green.jpg', 'A diced wafer on its frame, under the green light of the tape-curing unit')}
 <section class="sec white">
   <div class="wrap">
     <div class="tl">
@@ -482,7 +482,7 @@ fs.writeFileSync(path.join(ROOT, 'stats.html'), fs.readFileSync(path.join(ROOT, 
 
 // ---------------------------------------------------------------- team
 page('team.html', 'Team · Crystal BOND', 'The four INFN units of BOND, its people, work-package leaders and the institutions that support the project.', `
-${pHead('Team', 'Consortium and people', 'Physicists, engineers and technicians of four INFN units, with the universities of Ferrara, Padova and Trieste.', 'hero-cleanroom-people.jpg', 'Work in the Ferrara cleanroom')}
+${pHead('Team', 'Consortium and people', 'Physicists, engineers and technicians of four INFN units, with the universities of Ferrara, Padova and Trieste.', 'group-ferrara.jpg', 'The Ferrara group in its laboratory')}
 <section class="sec">
   <div class="wrap">
     <div class="coord"><span>National coordinator</span><b>Andrea Mazzolari</b><span>INFN and University of Ferrara · <a href="mailto:${CONTACT}">${CONTACT}</a></span></div>
