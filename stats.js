@@ -96,7 +96,7 @@
     root.appendChild(el('p', 'stats-updated', 'Last 90 days. Read on ' + new Date(d.updated).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' }) + '. A visitor is counted once a day.'));
     root.appendChild(tiles(d)); root.appendChild(chart(d));
     var grid = el('div', 'stats-grid');
-    [ranked('Pages', 'Views', d.pages, pageName), ranked('Institutions and networks', 'Visitors', d.networks), ranked('Countries', 'Visitors', d.countries, country),
+    [ranked('Pages', 'Views', d.pages, pageName), ranked('Addresses of the site', 'Views', d.sites || []), ranked('Institutions and networks', 'Visitors', d.networks), ranked('Countries', 'Visitors', d.countries, country),
      ranked('Coming from', 'Visitors', d.referrers), ranked('Time on the page', 'Pages', ordered(d.time, ['<10s', '10-30s', '30-60s', '1-3min', '3-10min', '>10min'])),
      ranked('How far down the page', 'Pages', ordered(d.scroll, ['<25%', '25%', '50%', '75%', '100%'])), ranked('Clicks', 'Clicks', d.events, eventName),
      ranked('Devices', 'Visitors', d.devices), ranked('Browsers', 'Visitors', d.browsers), ranked('Systems', 'Visitors', d.systems), ranked('Languages', 'Visitors', d.languages)]

@@ -124,7 +124,7 @@
 
 // Anonymous visit statistics, no cookies: beacons to the site's own counter (address in <html data-counter>, set by
 // src/build.js). One per page load, one per click on a contact link, one when the page is left (active seconds, deepest
-// scroll). Sent only from the published site; the statistics are read in stats.html.
+// scroll). Sent only from the published site and its copy on the INFN GitLab; the statistics are read in stats.html.
 (function () {
   var base = document.documentElement.getAttribute('data-counter');
   if (!base || ['crystal-bond.github.io', 'bond.baltig-pages.infn.it'].indexOf(location.hostname) < 0 || navigator.webdriver) return;
