@@ -400,8 +400,8 @@ body::before { background: #0b0b0d; }
 .stats-own { margin-top: 48px; color: var(--ink-2); font-size: var(--fs-ui); }
 .stats-own .stats-forget { margin-top: 0; font-size: inherit; }
 .stats-own + .stats-forget { margin-top: 14px; }
-.p-head-photo:has(img[src*="group-ferrara"]) { aspect-ratio: 1800 / 1216; min-height: 0; }
-.p-head-photo img[src*="group-ferrara"] { object-fit: contain; object-position: center; }
+.p-head-photo:has(img[src*="group-ferrara"]) { aspect-ratio: auto; min-height: 0; container-type: inline-size; } .p-head-photo:has(img[src*="group-ferrara"])::before { content: ""; display: block; aspect-ratio: 1800 / 840; }
+.p-head-photo img[src*="group-ferrara"] { height: 100%; max-height: 67.56cqw; margin-block: auto; object-fit: cover; object-position: center 16%; }
 /* the header is opaque: photos beside the title start under it, not behind it */
 @media (min-width: 861px) { .i-hero-photo, .p-head-photo { margin-top: calc(var(--nav-h) + env(safe-area-inset-top, 0px)); } }
 /* two photographs side by side in a technology panel: a tall one and a wide one */
