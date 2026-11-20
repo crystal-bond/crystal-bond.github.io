@@ -127,7 +127,7 @@
 // scroll). Sent only from the published site; the statistics are read in stats.html.
 (function () {
   var base = document.documentElement.getAttribute('data-counter');
-  if (!base || location.hostname !== 'crystal-bond.github.io' || navigator.webdriver) return;
+  if (!base || ['crystal-bond.github.io', 'bond.baltig-pages.infn.it'].indexOf(location.hostname) < 0 || navigator.webdriver) return;
   // the owner's browser is left out: the flag is set by the statistics page once the key has been accepted
   try { if (localStorage.getItem('bond-no-count') === '1') return; } catch (e) {}
   var send = function (data) {
