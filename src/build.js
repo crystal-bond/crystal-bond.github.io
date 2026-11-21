@@ -92,7 +92,7 @@ const imgSize = file => {
   return null;
 };
 // photographs and figures declare their size, so the page does not jump while they load (base.css keeps height: auto)
-const dims = html => html.replace(/<img\b[^>]*>/g, tag => {
+const dims = html => html.replace(/<(?:img)\b[^>]*>/g, tag => {
   const m = /src="(img\/(?:photos|fig)\/[^"?]+)"/.exec(tag);
   if (!m || /\swidth=/.test(tag)) return tag;
   const size = imgSize(path.join(ROOT, m[1]));
