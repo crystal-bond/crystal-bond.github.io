@@ -6,8 +6,9 @@ const path = require('path');
 const crypto = require('crypto');
 const ROOT = path.join(__dirname, '..');
 // Public address of the site, with the final slash: used where an absolute address is required (the picture shown when a
-// link is shared, sitemap.xml, robots.txt). The copy on baltig is made from the same files, so it carries this address too.
-const SITE = 'https://crystal-bond.github.io/';
+// link is shared, sitemap.xml). The copy on baltig is made from the same files, so it carries this address too.
+// It is kept in src/site.json; robots.txt, a plain file beside the pages, names the same address and changes with it.
+const SITE = require('./site.json').site;
 const PAGES = [];   // pages listed in sitemap.xml
 const FIG = { ...require('./figures'), ...require('./figures-bond') };
 const { DEVICES, UNITS, WPS, month, MILESTONES, STATUS, SUPPORT, P2026, P2025, RADIUS } = require('./content');
@@ -603,5 +604,4 @@ fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), `<?xml version="1.0" encoding="
 ${PAGES.map(f => `  <url><loc>${SITE}${f === 'index.html' ? '' : f}</loc></url>`).join('\n')}
 </urlset>
 `);
-fs.writeFileSync(path.join(ROOT, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE}sitemap.xml\n`);
 console.log('built', fs.readdirSync(ROOT).filter(f => f.endsWith('.html')).join(' '));
