@@ -14,7 +14,7 @@ const CONTACT = 'andrea.mazzolari@unife.it';
 // The site's own visit counter (Cloudflare Worker, sources in ../bond-counter). Empty = not connected: no beacons are sent.
 const COUNTER = 'https://bond-counter.bond-counter.workers.dev';
 
-const NAV = [['./', 'Home'], ['project.html', 'Project'], ['devices.html', 'Devices'], ['technology.html', 'Technology'], ['progress.html', 'Progress'], ['team.html', 'Team']];
+const NAV = [['./', 'Home'], ['project.html', 'Project'], ['devices.html', 'Devices'], ['technology.html', 'Technology'], ['progress.html', 'Progress'], ['rowlandbench.html', 'RowlandBench'], ['team.html', 'Team']];
 
 const nav = current => `<a class="skip" href="#main">Skip to content</a>
 <header class="nav">
@@ -183,7 +183,19 @@ ${DEVICES.map(d => `      <article class="obj"><img src="img/photos/${d.photo}" 
   </div>
 </section>
 
-<section class="sec white">
+<section class="sec white" aria-label="RowlandBench">
+  <div class="wrap split">
+    <div class="just">
+      <h2 class="h2 ruled">RowlandBench</h2>
+      <p>The analysers of BOND are designed with RowlandBench, a desktop program written in Ferrara for <span class="nw">X-ray</span> spectrometers based on bent crystals. It traces rays from the source to the detector and combines them with the <b>Takagi–Taupin reflectivity</b> of the bent crystal, the <b>strain</b> left by bending and the <b>shape errors</b> of the bonded crystal.</p>
+      <p>For each design it gives the energy resolution with a budget of the contributions and the fabrication tolerances, for emission, absorption and resonant inelastic scattering. The program runs on Windows and is free for universities and public research institutions.</p>
+      <p class="about-more"><a class="arrow" href="rowlandbench.html">What RowlandBench does</a></p>
+    </div>
+    <figure class="figcard"><a href="rowlandbench.html"><img src="img/fig/rb-window.webp" alt="Main window of RowlandBench: settings on the left, instrument response and reflectivity curve on the right" loading="lazy"></a><figcaption>The main window after a run: the instrument response of a bent analyser, with and without its shape error.</figcaption></figure>
+  </div>
+</section>
+
+<section class="sec">
   <div class="wrap">
     <div class="sec-head">
       <h2 class="h2 ruled">News</h2>
@@ -195,7 +207,7 @@ ${NEWS.map(([date, t, p, img, alt]) => `      <li><p class="news-date">${date}</
   </div>
 </section>
 
-<section class="sec">
+<section class="sec white">
   <div class="wrap">
     <div class="sec-head">
       <h2 class="h2 ruled">Consortium</h2>
@@ -417,7 +429,8 @@ ${pHead('RowlandBench', 'RowlandBench', 'A desktop program for the design and si
       <h2 class="h2 ruled">What it does</h2>
       <p>The energy resolution of a bent-crystal analyser comes from several effects of comparable size: the size of the source, the Johann aberration, the reflectivity curve of the bent crystal, the strain left by bending, the errors of shape and the pixels of the detector. Choosing a design means weighing them together.</p>
       <p>RowlandBench does these calculations in one place. It traces rays from an extended source to the analyser and the detector, and combines them with the <b>Takagi–Taupin reflectivity</b> of the bent crystal, the <b>in-plane strain</b> of the bonded wafer computed by finite elements, and <b>shape errors</b> taken from synthetic or measured interferometer maps. Integrating and position-resolving detectors with finite pixels are modelled.</p>
-      <p>For each design it reports the energy resolution with its statistical uncertainty, a budget of the contributions, and how resolution and efficiency respond to fabrication and alignment tolerances. A model of the incident-beam monochromator gives the elastic line of resonant inelastic <span class="nw">X-ray</span> scattering.</p>
+      <p>For each design it reports the energy resolution with its statistical uncertainty, a budget of the contributions, and how resolution and efficiency respond to fabrication and alignment tolerances.</p>
+      <p>The same analyser can be studied in three kinds of measurement: absorption, with a tube or another small source on the Rowland circle (XAS); emission from a sample excited by an incident beam (XES); and resonant inelastic scattering (RIXS), where the sample is excited through a model of the incident monochromator and the program gives the elastic line and the measured RIXS map.</p>
       <p>For BOND it is the tool to design the bonded analysers in quartz, lithium niobate and germanium, and to see how much of their resolution is lost to the shape of the bonded crystal.</p>
     </div>
     <figure class="figcard"><img src="img/fig/rb-window.webp" alt="Main window of RowlandBench: settings on the left, instrument response and reflectivity curve on the right" loading="lazy"><figcaption>The main window after a run: the settings pages and the sketch of the Rowland geometry on the left; on the right the instrument response, with and without the shape error, and the reflectivity curve of the bent crystal.</figcaption></figure>
@@ -427,17 +440,20 @@ ${pHead('RowlandBench', 'RowlandBench', 'A desktop program for the design and si
   <div class="wrap">
     <div class="sec-head">
       <h2 class="h2 ruled">What it covers</h2>
-      <p>Analysers, materials and readouts that can be simulated.</p>
+      <p>Measurements, analysers, materials and readouts that can be simulated.</p>
     </div>
     <div class="table-wrap"><table class="spec-table stack">
       <tbody>
+        <tr><th scope="row">Measurements</th><td>XAS (source on the Rowland circle), XES (emission from a sample), RIXS (sample excited through the incident monochromator)</td></tr>
         <tr><th scope="row">Analysers</th><td>Johann (cylindrical, spherical, toroidal), Johansson, diced, strip-bent, sliced, von Hámos; asymmetric reflections</td></tr>
         <tr><th scope="row">Arrays</th><td>up to 72 crystals (12 columns, 8 rows), with a common or separate focus and individual misalignments</td></tr>
         <tr><th scope="row">Materials</th><td>Si, Ge, α-quartz, sapphire, GaAs, LiF, diamond, InSb, LiNbO₃</td></tr>
         <tr><th scope="row">Imperfections</th><td>in-plane bending strain, finite-element contact of the wafer pressed on its substrate, synthetic or interferometric shape-error maps</td></tr>
         <tr><th scope="row">Detectors</th><td>integrating or position-resolving, with finite pixels</td></tr>
+        <tr><th scope="row">Incident beam</th><td>chains of monochromator crystals with their band, DuMond diagram and harmonics; sample model for RIXS as a table of excitations or a theoretical map</td></tr>
         <tr><th scope="row">Studies</th><td>parameter sweeps with response surfaces, tolerance studies, ranking of the analysers that reach a working energy</td></tr>
         <tr><th scope="row">Output</th><td>energy resolution (FWHM) with uncertainty, acceptance, spot on the detector, resolution budget; export as CSV, JSON, PNG, HTML and PDF</td></tr>
+        <tr><th scope="row">Scripting</th><td>a Python API with the same inputs and results as the window, for runs, studies, finite-element bending and exports from a script</td></tr>
       </tbody>
     </table></div>
   </div>
@@ -457,13 +473,14 @@ ${RB_FIGS.map(([f, t, c]) => `      <figure class="figcard"><img src="img/fig/${
   <div class="wrap about">
     <div class="just">
       <h2 class="h2 ruled">Implementation and availability</h2>
-      <p>RowlandBench is written in Python, with a Qt interface (PySide6), plots in Matplotlib and a three-dimensional view in PyVista. Crystal data come from xraylib, the reflectivity of bent crystals from the Takagi–Taupin solver pyTTE, <span class="nw">X-ray</span> tube spectra from SpekPy. Its results are compared with published measurements and calculations for strip-bent, diced and asymmetric spherically bent analysers.</p>
+      <p>RowlandBench is written in Python, with a Qt interface (PySide6), plots in Matplotlib and a three-dimensional view in PyVista. Crystal data come from xraylib, the reflectivity of bent crystals from the Takagi–Taupin solver pyTTE, <span class="nw">X-ray</span> tube spectra from SpekPy. A Python API gives scripts the same calculations as the window, and the installed program runs them without opening it. Its results are compared with published measurements and calculations for strip-bent, diced and asymmetric spherically bent analysers.</p>
       <p>The program is distributed as an installer for 64-bit Windows, under a free academic licence for universities and public research institutions. The article that describes it is in preparation.</p>
       <p class="about-more"><a class="arrow" href="mailto:${CONTACT}?subject=RowlandBench">Ask for RowlandBench</a></p>
     </div>
     <dl class="factsheet" aria-label="RowlandBench data">
       <dt>Author</dt><dd>Andrea Mazzolari, University of Ferrara and INFN Ferrara</dd>
       <dt>Language</dt><dd>Python, Qt 6 interface</dd>
+      <dt>Interfaces</dt><dd>desktop window, Python API for scripts</dd>
       <dt>Platform</dt><dd>Windows, 64 bit</dd>
       <dt>Licence</dt><dd>free academic licence</dd>
       <dt>Reference</dt><dd>article in preparation</dd>
