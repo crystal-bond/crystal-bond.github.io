@@ -187,7 +187,7 @@ ${DEVICES.map(d => `      <article class="obj"><img src="img/photos/${d.photo}" 
   <div class="wrap split">
     <div class="just">
       <h2 class="h2 ruled">RowlandBench</h2>
-      <p>The analysers of BOND are designed with RowlandBench, a desktop program written in Ferrara for <span class="nw">X-ray</span> spectrometers based on bent crystals. It traces rays from the source to the detector and combines them with the <b>Takagi–Taupin reflectivity</b> of the bent crystal, the <b>strain</b> left by bending and the <b>shape errors</b> of the bonded crystal.</p>
+      <p>The analysers of BOND are designed with RowlandBench, a desktop program for <span class="nw">X-ray</span> spectrometers based on bent crystals. It traces rays from the source to the detector and combines them with the <b>Takagi–Taupin reflectivity</b> of the bent crystal, the <b>strain</b> left by bending and the <b>shape errors</b> of the bonded crystal.</p>
       <p>For each design it gives the energy resolution with a budget of the contributions and the fabrication tolerances, for emission, absorption and resonant inelastic scattering. The program runs on Windows and is free for universities and public research institutions.</p>
       <p class="about-more"><a class="arrow" href="rowlandbench.html">What RowlandBench does</a></p>
     </div>
@@ -422,7 +422,7 @@ const RB_FIGS = [
   ['rb-maps', 'Maps over the crystal', 'Over the 100 mm face of the analyser: energy shift from the in-plane strain of the ideally bent wafer, a synthetic shape error, the strain with the shape error, and the mean reflected energy with all effects.'],
 ];
 page('rowlandbench.html', 'RowlandBench · Crystal BOND', 'RowlandBench, a desktop program for the design and simulation of X-ray spectrometers based on bent-crystal analysers: ray tracing, Takagi–Taupin reflectivity, bending strain, shape errors and tolerances.', `
-${pHead('RowlandBench', 'RowlandBench', 'A desktop program for the design and simulation of <span class="nw">X-ray</span> spectrometers based on bent-crystal analysers, written in Ferrara.', 'rb-head.jpg', 'The instrument response computed by RowlandBench for a spherically bent silicon analyser')}
+${pHead('RowlandBench', 'RowlandBench', 'A desktop program for the design and simulation of <span class="nw">X-ray</span> spectrometers based on bent-crystal analysers.', 'rb-head.jpg', 'The instrument response computed by RowlandBench for a spherically bent silicon analyser')}
 <section class="sec white">
   <div class="wrap split">
     <div class="just">
