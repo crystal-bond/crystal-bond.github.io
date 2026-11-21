@@ -19,7 +19,7 @@ const NAV = [['./', 'Home'], ['project.html', 'Project'], ['devices.html', 'Devi
 const nav = current => `<a class="skip" href="#main">Skip to content</a>
 <header class="nav">
   <div class="wrap nav-in">
-    <a class="brand" href="./"><img src="img/logos/infn-white.svg" alt="INFN" width="65" height="34"><img class="unife" src="img/logos/unife-white.png" alt="University of Ferrara" width="359" height="160"><span>Crystal BOND<small>INFN CSN5 CALL · 2025–2027</small></span></a>
+    <a class="brand" href="./"><img src="img/logos/infn-white.svg" alt="INFN" width="65" height="34"><img class="unife" src="img/logos/unife-white.png" alt="University of Ferrara" width="359" height="160"><span>Crystal BOND<small>CSN5 CALL · 2025–2027</small></span></a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
     <nav class="nav-main" aria-label="Main">
       <ul class="nav-links" id="menu">
