@@ -1,1 +1,1 @@
-pages: {image: "alpine:latest", stage: deploy, script: ["mkdir .public", "cp -r * .public", "rm -rf .public/src", "mv .public public"], artifacts: {paths: [public]}, rules: [{if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH"}]}
+pages: {image: "alpine:latest", stage: deploy, script: ["wget -qO site.tgz https://github.com/crystal-bond/crystal-bond.github.io/archive/refs/heads/main.tar.gz", "tar xzf site.tgz", "mv crystal-bond.github.io-main public", "rm -rf public/src"], artifacts: {paths: [public]}, rules: [{if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH"}]}
