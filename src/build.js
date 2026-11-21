@@ -44,7 +44,7 @@ const footer = `<footer class="footer">
   </div>
   <div class="foot-bar">
     <div class="wrap foot-bottom">
-      <p>Crystal BOND, a research project funded by INFN National Scientific Committee 5 (CSN5) through its CALL line · INFN Ferrara (coordination), Laboratori Nazionali di Legnaro, INFN Trieste, Laboratori Nazionali di Frascati</p>
+      <p>Crystal BOND, a research project funded by INFN National Scientific Committee 5 through a CSN5 CALL grant · INFN Ferrara (coordination), Laboratori Nazionali di Legnaro, INFN Trieste, Laboratori Nazionali di Frascati</p>
       <p>Ferrara unit: <a href="https://crystalab.unife.it/">Crystal Lab Ferrara</a> · Visits are counted anonymously, without cookies</p>
     </div>
   </div>
@@ -158,13 +158,13 @@ const NEWS = [
 ];
 const LOGOS = [['cern.png', 'CERN'], ['esrf.png', 'ESRF'], ['xfel.png', 'European XFEL'], ['elettra.jpg', 'Elettra Sincrotrone Trieste'], ['inaf.png', 'INAF']];
 
-page('index.html', 'Crystal BOND · INFN research project on bonded bent crystals', 'BOND is a research project funded by INFN National Scientific Committee 5 through its CALL line (2025–2027) on bent crystals bonded to figured substrates, for the LHC, X-ray spectroscopy and imaging, and Laue lenses.', `
+page('index.html', 'Crystal BOND · INFN research project on bonded bent crystals', 'BOND is a research project funded by INFN National Scientific Committee 5 through a CSN5 CALL grant (2025–2027) on bent crystals bonded to figured substrates, for the LHC, X-ray spectroscopy and imaging, and Laue lenses.', `
 <section class="i-hero on-dark" aria-label="Crystal BOND">
   <div class="i-hero-text">
     <p class="kicker rise"><span>Istituto Nazionale di Fisica Nucleare</span> <span>National Scientific Committee 5</span></p>
     <h1 class="rise d1">Crystal BOND</h1>
     <p class="i-sub rise d1">Bonded bent crystals for particle accelerators, synchrotron <span class="nw">X-ray</span> optics and γ-ray astronomy</p>
-    <p class="i-lead rise d2">A three-year research project, 2025–2027, funded by INFN National Scientific Committee 5 through its CALL line. It is carried out by the Ferrara, Legnaro, Trieste and Frascati units and coordinated by INFN Ferrara.</p>
+    <p class="i-lead rise d2">A three-year research project, 2025–2027, funded by INFN National Scientific Committee 5 through a CSN5 CALL grant. It is carried out by the Ferrara, Legnaro, Trieste and Frascati units and coordinated by INFN Ferrara.</p>
     <div class="actions rise d3"><a class="btn btn-white" href="project.html">The project</a><a class="btn btn-ghost" href="progress.html">Results</a></div>
   </div>
   <div class="i-hero-photo">${HERO}</div>
@@ -191,7 +191,7 @@ page('index.html', 'Crystal BOND · INFN research project on bonded bent crystal
     <dl class="factsheet" aria-label="Project data">
       <dt>Acronym</dt><dd>BOND</dd>
       <dt>Title</dt><dd>Crystal BOND</dd>
-      <dt>Funding</dt><dd>INFN National Scientific Committee 5 (CSN5), CALL line</dd>
+      <dt>Funding</dt><dd>INFN National Scientific Committee 5, CSN5 CALL grant</dd>
       <dt>Research area</dt><dd>Accelerators</dd>
       <dt>Duration</dt><dd>January 2025 – December 2027</dd>
       <dt>National coordinator</dt><dd>Andrea Mazzolari, INFN Ferrara</dd>
@@ -271,7 +271,7 @@ ${UNITS.map(u => `      <li><h3>${esc(u.name)}</h3><p class="c-role">${esc(u.rol
 const NOW = 22 + 17 / 30; // months since 1 January 2025, on 17 November 2026
 const at = m => (m / 36 * 100).toFixed(2);
 page('project.html', 'Project · Crystal BOND', 'Goals, work packages and timeline of BOND, the INFN project on bonded bent crystals, 2025–2027.', `
-${pHead('Project', 'The project', 'BOND, Crystal BOND, is a research project funded by INFN National Scientific Committee 5 (CSN5) through its CALL line, in the accelerator area, from 2025 to 2027. It is coordinated by INFN Ferrara.', 'cleanroom.jpg', 'The Ferrara cleanroom', 'The Ferrara cleanroom, where the project is coordinated.')}
+${pHead('Project', 'The project', 'BOND, Crystal BOND, is a research project funded by INFN National Scientific Committee 5 through a CSN5 CALL grant, in the accelerator area, from 2025 to 2027. It is coordinated by INFN Ferrara.', 'cleanroom.jpg', 'The Ferrara cleanroom', 'The Ferrara cleanroom, where the project is coordinated.')}
 <section class="sec white">
   <div class="wrap split">
     <div class="just">
