@@ -9,7 +9,7 @@ const FIG = { ...require('./figures'), ...require('./figures-bond') };
 const { DEVICES, UNITS, WPS, month, MILESTONES, STATUS, SUPPORT, P2026, P2025, RADIUS } = require('./content');
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const nw = s => esc(s).replace(/(\S+-\S+)/g, '<span class="nw">$1</span>');
-const V = Object.fromEntries(['base.css', 'bond.css', 'bond.js', 'stats.js'].map(f => [f, crypto.createHash('md5').update(fs.readFileSync(path.join(ROOT, f))).digest('hex').slice(0, 8)]));
+const V = Object.fromEntries(['base.css', 'bond.css', 'bond.js', 'stats.js', 'img/video/hero.mp4'].filter(f => fs.existsSync(path.join(ROOT, f))).map(f => [f, crypto.createHash('md5').update(fs.readFileSync(path.join(ROOT, f))).digest('hex').slice(0, 8)]));
 const CONTACT = 'andrea.mazzolari@unife.it';
 // The site's own visit counter (Cloudflare Worker, sources in ../bond-counter). Empty = not connected: no beacons are sent.
 const COUNTER = 'https://bond-counter.bond-counter.workers.dev';
@@ -104,9 +104,9 @@ ${webp(`${nav(file)}\n<main id="main">\n${body}\n</main>\n${footer}`)}
 // page header: navy band with crumb, title and lead; a photo of the project beside it
 const pHead = (crumb, title, lead, img, alt) => `<section class="p-head on-dark">
   <div class="p-head-text">
-    <p class="crumbs"><a href="./">Crystal BOND</a> / ${crumb}</p>
-    <h1>${title}</h1>
-    <p>${lead}</p>
+    <p class="crumbs rise"><a href="./">Crystal BOND</a> / ${crumb}</p>
+    <h1 class="rise d1">${title}</h1>
+    <p class="rise d2">${lead}</p>
   </div>
   <div class="p-head-photo"><img src="img/photos/${img}" alt="${esc(alt)}" fetchpriority="high"></div>
 </section>`;
@@ -115,6 +115,11 @@ const doi = (d, label) => `<a href="https://doi.org/${d}">${label}</a>`;
 const sheet = rows => `<dl class="sheet">${rows.map(([a, b]) => `<dt>${esc(a)}</dt><dd>${esc(b)}</dd>`).join('')}</dl>`;
 
 // ---------------------------------------------------------------- home
+// header of the home page: the film img/video/hero.mp4 when it is there (muted loop started by bond.js, its first frame as
+// poster), otherwise the photograph of the diced wafer
+const HERO = V['img/video/hero.mp4']
+  ? `<video muted loop playsinline preload="none" poster="img/video/hero.jpg?v=${V['img/video/hero.mp4']}" aria-label="The Ferrara laboratory: a diced silicon wafer, the dicing room, a wafer on its frame, the first quartz analyser, a silicon crystal bonded on glass"><source src="img/video/hero.mp4?v=${V['img/video/hero.mp4']}" type="video/mp4"></video>`
+  : `<img src="img/photos/wafer-diced-close.jpg" alt="A silicon wafer diced into crystals, still on its dicing frame" fetchpriority="high">`;
 // dated news for the home page, newest first; each links to the Progress page
 const NEWS = [
   ['2026', 'Cylindrical silicon crystals prepared for SOLEIL', 'Two silicon (111) crystals, 0.3 mm thick, bonded on glass and aluminium cylinders of 1 m radius and checked by X-ray diffraction, for deflection tests with synchrotron light.', 'si111-glass-r1m.jpg', 'A silicon (111) crystal bonded on a cylindrical glass substrate of 1 m radius'],
@@ -133,7 +138,7 @@ page('index.html', 'Crystal BOND · INFN research project on bonded bent crystal
     <p class="i-lead rise d2">A three-year INFN research project, 2025–2027, carried out by the Ferrara, Legnaro, Trieste and Frascati units and coordinated by INFN Ferrara.</p>
     <div class="actions rise d3"><a class="btn btn-white" href="project.html">The project</a><a class="btn btn-ghost" href="progress.html">Results</a></div>
   </div>
-  <div class="i-hero-photo"><img src="img/photos/wafer-diced-close.jpg" alt="A silicon wafer diced into crystals, still on its dicing frame" fetchpriority="high"></div>
+  <div class="i-hero-photo">${HERO}</div>
 </section>
 <section class="ticker" aria-label="BOND in figures">
   <div class="wrap">

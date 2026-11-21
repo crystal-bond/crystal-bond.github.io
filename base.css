@@ -150,12 +150,19 @@ main > .section:last-child { padding-bottom: clamp(40px, 5vw, 64px); }
 /* ---------- motion ---------- */
 .rise { animation: rise .8s cubic-bezier(.2,.7,.2,1) both; }
 .rise.d1 { animation-delay: .08s; } .rise.d2 { animation-delay: .16s; } .rise.d3 { animation-delay: .24s; }
-@keyframes rise { from { transform: translateY(18px); } to { transform: none; } }
-.js .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+/* entrances (bond.js marks the parts with "reveal"): until it has, the sections under the header wait unseen, so the
+   finished page never flashes first; if the script never gets there they show by themselves after three seconds */
+.js body:not(.rv-on) main > :not(.i-hero):not(.p-head) { opacity: 0; animation: unhide .01s 3s forwards; }
+@keyframes unhide { to { opacity: 1; } }
+.js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
 .js .reveal.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
-  .js .reveal { opacity: 1; transform: none; }
+  .js .reveal, .js body:not(.rv-on) main > :not(.i-hero):not(.p-head) { opacity: 1; transform: none; }
+}
+@media print {
+  .js .reveal, .js body:not(.rv-on) main > :not(.i-hero):not(.p-head) { opacity: 1; transform: none; animation: none; }
 }
 
 /* ---------- diagrams (shared with src/figures.js) ---------- */

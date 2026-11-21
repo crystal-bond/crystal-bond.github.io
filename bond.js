@@ -1,4 +1,41 @@
-// Crystal BOND: navigation state, phone menu, reveal on scroll, the bonding animation of the home page.
+// Crystal BOND: entrances of the sections, navigation state, phone menu, the film and the field of points of the home page.
+
+// Entrances: the parts of a section (heading, text, figures, cards) come in one after the other, once, as they reach the
+// viewport. The parts are chosen here; until they are marked, base.css keeps the sections under the header unseen, so the
+// finished page never flashes first. With reduced motion, or without IntersectionObserver, nothing is hidden.
+(function () {
+  var PARTS = ['.ticker li', '.sec-head > *', '.sec .just > *', '.factsheet', '.figcard', 'figure.photo', '.obj', '.news-list > li',
+    '.consortium > li', '.logo-strip', '.contact-in > *', '.table-wrap', '.wps > li', '.gantt', '.g-legend', '.dev-side', '.tpanel',
+    '.tl-year', '.tl-item', '.glance > div', '.bars > li', '.pubs > li', '.coord', '.unit', '.supp > li'].join(',');
+  try {
+    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    // a part inside another part comes in with it
+    var parts = [].filter.call(document.querySelectorAll(PARTS), function (el) { return !el.parentElement.closest(PARTS); });
+    var io = new IntersectionObserver(function (es) {
+      var k = 0;
+      es.forEach(function (e) {
+        var el = e.target;
+        // already scrolled past (a link to a section further down): shown at once
+        if (!e.isIntersecting) { if (e.boundingClientRect.bottom <= 0) { io.unobserve(el); el.classList.remove('reveal'); } return; }
+        io.unobserve(el);
+        el.style.transitionDelay = Math.min(k++, 6) * 70 + 'ms';
+        el.classList.add('in');
+        el.addEventListener('transitionend', function done(ev) {
+          if (ev.target !== el || ev.pseudoElement) return;
+          el.removeEventListener('transitionend', done); el.style.transitionDelay = ''; el.classList.remove('reveal');
+        });
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    parts.forEach(function (el) { el.classList.add('reveal'); });
+    // watching starts once a frame has been drawn with the parts hidden: a part already in view when the page opens would
+    // otherwise be shown at once, without its entrance (the timer is for a page opened in a background tab)
+    var started = false;
+    var start = function () { if (started) return; started = true; parts.forEach(function (el) { io.observe(el); }); };
+    window.requestAnimationFrame(function () { window.requestAnimationFrame(start); });
+    setTimeout(start, 1200);
+  } finally { document.body.classList.add('rv-on'); }
+})();
+
 (function () {
   // "Skip to content" moves focus to the main content in place (on the 404 page a <base> would otherwise send it home)
   var skip = document.querySelector('.skip');
@@ -42,23 +79,28 @@
     });
   }
 
-  // Home carousel: crossfade every 6 s, dots, pause; stops when reduced motion is requested.
-
-  // sections fade in once as they reach the viewport
-  var rv = [].slice.call(document.querySelectorAll('.reveal'));
-  if (rv.length && 'IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
-    rv.forEach(function (el) { io.observe(el); });
-  } else rv.forEach(function (el) { el.classList.add('in'); });
-
-  // home: the bonding animation runs once on load (the static drawing is its last frame), and again on request
-  var anim = document.querySelector('.bond-anim');
-  if (anim) {
-    var run = function () { [].forEach.call(anim.querySelectorAll('animate'), function (a) { if (a.beginElement) a.beginElement(); }); };
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) run();
-    anim.classList.add('play');
-    var replay = anim.querySelector('.bond-replay');
-    if (replay) replay.addEventListener('click', run);
+  // home: the film in the header plays muted, in a loop, while it is on screen; a button stops and starts it. With reduced
+  // motion or data saving it stays on its first frame until asked; without scripts it is a still picture.
+  var film = document.querySelector('.i-hero-photo video');
+  if (film) {
+    var wanted = !window.matchMedia('(prefers-reduced-motion: reduce)').matches && !(navigator.connection && navigator.connection.saveData);
+    var seen = true;
+    var fbtn = document.createElement('button');
+    fbtn.type = 'button'; fbtn.className = 'film-btn';
+    var ficons = {
+      pause: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14" stroke="currentColor" stroke-width="3" stroke-linecap="square"/></svg>',
+      play: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z" fill="currentColor"/></svg>'
+    };
+    var fset = function () { fbtn.setAttribute('aria-label', wanted ? 'Pause the film' : 'Play the film'); fbtn.innerHTML = wanted ? ficons.pause : ficons.play; };
+    var fsync = function () {
+      if (wanted && seen && !document.hidden) { var p = film.play(); if (p && p.catch) p.catch(function () {}); }
+      else film.pause();
+    };
+    fbtn.addEventListener('click', function () { wanted = !wanted; fset(); fsync(); });
+    film.parentNode.appendChild(fbtn); fset();
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { seen = es[es.length - 1].isIntersecting; fsync(); }).observe(film);
+    document.addEventListener('visibilitychange', fsync);
+    fsync();
   }
 })();
 
