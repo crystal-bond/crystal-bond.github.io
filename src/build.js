@@ -71,6 +71,34 @@ const hyphText = html => html.replace(/>([^<]+)</g, (m, t) => '>' + t.replace(/[
 // justified blocks are marked "just" and hold only paragraphs
 const hyphPage = body => body.replace(/<div class="[^"]*\bjust\b[^"]*">[\s\S]*?<\/div>/g, m => m.replace(/<p>[\s\S]*?<\/p>/g, hyphText));
 
+// width and height of a PNG, WebP or JPEG file, read from its header
+const imgSize = file => {
+  const b = fs.readFileSync(file);
+  if (b.toString('latin1', 1, 4) === 'PNG') return [b.readUInt32BE(16), b.readUInt32BE(20)];
+  if (b.toString('latin1', 0, 4) === 'RIFF') {
+    const kind = b.toString('latin1', 12, 16);
+    if (kind === 'VP8X') return [1 + b.readUIntLE(24, 3), 1 + b.readUIntLE(27, 3)];
+    if (kind === 'VP8 ') return [b.readUInt16LE(26) & 0x3fff, b.readUInt16LE(28) & 0x3fff];
+    if (kind === 'VP8L') { const n = b.readUInt32LE(21); return [1 + (n & 0x3fff), 1 + ((n >>> 14) & 0x3fff)]; }
+  }
+  if (b[0] === 0xff && b[1] === 0xd8) {
+    for (let i = 2; i + 9 < b.length;) {
+      if (b[i] !== 0xff) { i++; continue; }
+      const m = b[i + 1];
+      if (m >= 0xc0 && m <= 0xcf && m !== 0xc4 && m !== 0xc8 && m !== 0xcc) return [b.readUInt16BE(i + 7), b.readUInt16BE(i + 5)];
+      i += 2 + b.readUInt16BE(i + 2);
+    }
+  }
+  return null;
+};
+// photographs and figures declare their size, so the page does not jump while they load (base.css keeps height: auto)
+const dims = html => html.replace(/<img\b[^>]*>/g, tag => {
+  const m = /src="(img\/(?:photos|fig)\/[^"?]+)"/.exec(tag);
+  if (!m || /\swidth=/.test(tag)) return tag;
+  const size = imgSize(path.join(ROOT, m[1]));
+  return size ? tag.replace(/>$/, ` width="${size[0]}" height="${size[1]}">`) : tag;
+});
+
 function page(file, title, desc, body, cls = '') {
   body = hyphPage(body)
     .replace(/<a href="(https?:\/\/[^"]+)"/g, '<a href="$1" target="_blank" rel="noopener"')
@@ -98,7 +126,7 @@ ${webp(`${nav(file)}\n<main id="main">\n${body}\n</main>\n${footer}`)}
 </body>
 </html>
 `;
-  fs.writeFileSync(path.join(ROOT, file), html);
+  fs.writeFileSync(path.join(ROOT, file), dims(html));
 }
 
 // page header: navy band with crumb, title and lead; a photo of the project beside it
@@ -369,7 +397,7 @@ ${pHead('Progress', 'Progress', 'The first bonded analysers on a synchrotron, cy
 <section class="sec white">
   <div class="wrap">
     <div class="tl">
-      <div class="tl-year"><b>2026</b><span>Ferrara, from the lab notes. Updated November 2026.</span></div>
+      <div class="tl-year"><h2>2026</h2><span>Ferrara, from the lab notes. Updated November 2026.</span></div>
       <ol class="tl-list">
 ${P2026.map((x, k) => tlItem(x, 'Ferrara', k === 0)).join('\n')}
       </ol>
@@ -393,7 +421,7 @@ ${P2026.map((x, k) => tlItem(x, 'Ferrara', k === 0)).join('\n')}
 <section class="sec white">
   <div class="wrap">
     <div class="tl">
-      <div class="tl-year"><b>2025</b><span>All four units, from the 2025 activity report.</span></div>
+      <div class="tl-year"><h2>2025</h2><span>All four units, from the 2025 activity report.</span></div>
       <ol class="tl-list">
 ${P2025.flatMap(([unit, items]) => items.map((x, k) => tlItem(x, unit, unit === 'Ferrara' && k === 0))).join('\n')}
       </ol>
@@ -429,7 +457,7 @@ const RB_VERSION = '0.2.2 beta 1';
 const RB_SETUP = 'https://github.com/crystal-bond/crystal-bond.github.io/releases/download/v0.2.2-beta1/RowlandBench-0.2.2-beta1-setup.exe';
 const RB_VIDEO = 'https://youtu.be/MmRnDn64GnQ';
 page('rowlandbench.html', 'RowlandBench · Crystal BOND', 'RowlandBench, a desktop program for the design and simulation of X-ray spectrometers based on bent-crystal analysers: ray tracing, Takagi–Taupin reflectivity, bending strain, shape errors and tolerances.', `
-${pHead('RowlandBench', 'RowlandBench', 'A desktop program for the design and simulation of <span class="nw">X-ray</span> spectrometers based on bent-crystal analysers.', 'rb-head.jpg', 'Instrument response computed by RowlandBench for a spherically bent silicon analyser, with and without its shape error: 1113 meV wide in both cases',
+${pHead('RowlandBench', 'RowlandBench', 'A desktop program for the design and simulation of <span class="nw">X-ray</span> spectrometers based on bent-crystal analysers.', 'rb-response.jpg', 'Instrument response computed by RowlandBench for a spherically bent silicon analyser, with and without its shape error: 1113 meV wide in both cases',
   `\n    <div class="actions rise d3"><a class="btn btn-white" href="#get">Download and licence</a><a class="btn btn-ghost" href="#run">Results of a run</a></div>`)}
 <section class="sec white">
   <div class="wrap about">
@@ -497,11 +525,8 @@ ${RB_VIEWS.map(([f, w, h, tab, alt, t, c]) => `      <div class="view" id="view-
     <dl class="factsheet" aria-label="RowlandBench data">
       <dt>Author</dt><dd>Andrea Mazzolari, University of Ferrara and INFN Ferrara</dd>
       <dt>Version</dt><dd>${RB_VERSION}</dd>
-      <dt>Language</dt><dd>Python, Qt 6 interface</dd>
       <dt>Interfaces</dt><dd>desktop window, Python API for scripts</dd>
       <dt>Platform</dt><dd>Windows, 64 bit</dd>
-      <dt>Licence</dt><dd>free academic licence</dd>
-      <dt>Reference</dt><dd>article in preparation</dd>
     </dl>
   </div>
 </section>`);

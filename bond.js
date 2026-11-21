@@ -1,5 +1,59 @@
 // Crystal BOND: entrances of the sections, navigation state, phone menu, the film and the field of points of the home page.
 
+// Pictures and plots open large: a click, or Enter on the focused picture, shows the whole picture in a dialog.
+// A link to a picture file does the same; without script it simply opens the file.
+(function () {
+  if (!('HTMLDialogElement' in window)) return;
+  var PICS = '.tl-card img, .tpanel .media img, .dev-main .photo img, .figcard img';
+  var FILE = /\.(?:webp|png|jpe?g)(?:\?.*)?$/i;
+  var box, pic, cap, back;
+  var caption = function (el) {
+    var fig = el.closest('figure'), fc = fig && fig.querySelector('figcaption'), near = el.closest('.tl-card, .tpanel');
+    if (fc) { var c = fc.cloneNode(true); [].forEach.call(c.querySelectorAll('a'), function (a) { a.remove(); }); return c.textContent.trim(); }
+    var t = near && near.querySelector('.cap, h3, h2');
+    return t ? t.textContent.trim() : '';
+  };
+  var open = function (src, alt, text, from) {
+    if (!box) {
+      box = document.createElement('dialog');
+      box.className = 'lightbox';
+      box.setAttribute('aria-label', 'Enlarged picture');
+      box.innerHTML = '<figure><figcaption></figcaption></figure><button type="button" class="lb-close" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>';
+      document.body.appendChild(box);
+      // the picture element is made here and gets its address only when a picture is opened
+      cap = box.querySelector('figcaption');
+      pic = document.createElement('img');
+      cap.parentNode.insertBefore(pic, cap);
+      box.addEventListener('click', function (e) { if (e.target !== pic && !cap.contains(e.target)) box.close(); });
+      box.addEventListener('close', function () { pic.removeAttribute('src'); if (back) back.focus(); });
+    }
+    back = from;
+    pic.src = src;
+    pic.alt = alt || '';
+    cap.textContent = text || alt || '';
+    box.showModal();
+  };
+  [].forEach.call(document.querySelectorAll(PICS), function (im) {
+    if (im.closest('a')) return;
+    var show = function () { open(im.currentSrc || im.src, im.alt, caption(im), im); };
+    im.classList.add('zoom');
+    im.tabIndex = 0;
+    im.setAttribute('role', 'button');
+    im.setAttribute('aria-label', 'Enlarge the picture' + (im.alt ? ': ' + im.alt : ''));
+    im.addEventListener('click', show);
+    im.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(); } });
+  });
+  [].forEach.call(document.querySelectorAll('main a[href]'), function (a) {
+    if (!FILE.test(a.getAttribute('href'))) return;
+    a.addEventListener('click', function (e) {
+      if (e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;
+      e.preventDefault();
+      var im = a.querySelector('img') || (a.closest('figure') && a.closest('figure').querySelector('img'));
+      open(a.href, im ? im.alt : '', caption(a), a);
+    });
+  });
+})();
+
 // Views of a run (RowlandBench page): the figures become tabs, one large figure at a time. Without script they follow one another.
 (function () {
   [].forEach.call(document.querySelectorAll('.views'), function (box) {

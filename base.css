@@ -71,7 +71,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 [hidden] { display: none !important; }
-img { max-width: 100%; display: block; }
+img { max-width: 100%; height: auto; display: block; }
 picture { display: contents; }
 /* with the picture box gone, its <source> would become a grid item of its own and push the photo into the next cell */
 picture > source { display: none; }
