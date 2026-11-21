@@ -9,8 +9,8 @@
 <meta name="theme-color" content="#0e0e0f">
 <link rel="icon" href="img/logo.svg" type="image/svg+xml">
 <link rel="preload" href="fonts/ibm-plex-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="base.css?v=a91cfbdd">
-<link rel="stylesheet" href="bond.css?v=c9756dfd">
+<link rel="stylesheet" href="base.css?v=670f753a">
+<link rel="stylesheet" href="bond.css?v=a2251771">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Crystal BOND">
 <meta property="og:title" content="RowlandBench · Crystal BOND">
@@ -42,23 +42,46 @@
     <p class="crumbs rise"><a href="./">Crystal BOND</a> / RowlandBench</p>
     <h1 class="rise d1">RowlandBench</h1>
     <p class="rise d2">A desktop program for the design and simulation of <span class="nw">X-ray</span> spectrometers based on bent-crystal analysers.</p>
+    <div class="actions rise d3"><a class="btn btn-white" href="#get">Download and licence</a><a class="btn btn-ghost" href="#run">Results of a run</a></div>
   </div>
-  <div class="p-head-photo"><picture><source srcset="img/photos/rb-head.webp" type="image/webp"><img src="img/photos/rb-head.jpg" alt="The instrument response computed by RowlandBench for a spherically bent silicon analyser" fetchpriority="high"></picture></div>
+  <div class="p-head-photo"><picture><source srcset="img/photos/rb-head.webp" type="image/webp"><img src="img/photos/rb-head.jpg" alt="Instrument response computed by RowlandBench for a spherically bent silicon analyser, with and without its shape error: 1113 meV wide in both cases" fetchpriority="high"></picture></div>
 </section>
 <section class="sec white">
-  <div class="wrap split">
+  <div class="wrap about">
     <div class="just">
       <h2 class="h2 ruled">What it does</h2>
       <p>The energy resolu­tion of a bent-crystal analyser comes from several effects of comparable size: the size of the source, the Johann aberra­tion, the re­flec­tiv­i­ty curve of the bent crystal, the strain left by bending, the errors of shape and the pixels of the de­tec­tor. Choosing a design means weighing them to­geth­er.</p>
       <p>RowlandBench does these calcula­tions in one place. It traces rays from an extended source to the analyser and the de­tec­tor, and combines them with the <b>Takagi–Taupin re­flec­tiv­i­ty</b> of the bent crystal, the <b>in-plane strain</b> of the bonded wafer com­put­ed by finite el­e­ments, and <b>shape errors</b> taken from synthetic or mea­sured in­ter­fer­om­e­ter maps. Integrat­ing and position-resolv­ing de­tec­tors with finite pixels are modelled.</p>
       <p>For each design it reports the energy resolu­tion with its statistical uncertainty, a budget of the contribu­tions, and how resolu­tion and ef­fi­cien­cy respond to fabrica­tion and align­ment tolerances.</p>
-      <p>The same analyser can be studied in three kinds of measure­ment: absorp­tion, with a tube or another small source on the Rowland circle (XAS); emis­sion from a sample excited by an incident beam (XES); and res­o­nant in­elas­tic scatter­ing (RIXS), where the sample is excited through a model of the incident mono­chromator and the program gives the elastic line and the mea­sured RIXS map.</p>
       <p>For BOND it is the tool to design the bonded analysers in quartz, lithium niobate and ger­ma­nium, and to see how much of their resolu­tion is lost to the shape of the bonded crystal.</p>
     </div>
-    <figure class="figcard"><img src="img/fig/rb-window.webp" alt="Main window of RowlandBench: settings on the left, instrument response and reflectivity curve on the right" loading="lazy"><figcaption>The main window after a run: the settings pages and the sketch of the Rowland geometry on the left; on the right the instrument response, with and without the shape error, and the reflectivity curve of the bent crystal.</figcaption></figure>
+    <div class="modes">
+      <h3>Three kinds of measurement</h3>
+      <p>The same analyser can be studied in absorption, in emission and in resonant inelastic scattering.</p>
+      <dl class="factsheet">
+        <dt>XAS</dt><dd>absorption, with a tube or another small source on the Rowland circle</dd>
+        <dt>XES</dt><dd>emission from a sample excited by an incident beam</dd>
+        <dt>RIXS</dt><dd>resonant inelastic scattering: the sample is excited through a model of the incident monochromator, and the program gives the elastic line and the measured RIXS map</dd>
+      </dl>
+      <p class="about-more"><a href="https://youtu.be/MmRnDn64GnQ" target="_blank" rel="noopener" class="arrow">Video: setting up a RIXS case</a></p>
+    </div>
   </div>
 </section>
-<section class="sec">
+<section class="sec" id="run">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="h2 ruled">Results of a run</h2>
+      <p>The main window and three of the result views, for the same run: a 1 m spherically bent Si(555) analyser at 9982 eV.</p>
+    </div>
+    <div class="views" data-label="Views of the run">
+      <div class="view" id="view-rb-window" data-tab="Main window"><figure class="figcard"><a href="img/fig/rb-window.webp" target="_blank" aria-label="Main window: open the figure at full size"><img src="img/fig/rb-window.webp" alt="Main window of RowlandBench: settings on the left, instrument response and reflectivity curve on the right" width="1800" height="1012" loading="lazy"></a><figcaption><b>Main window.</b> The settings pages and the sketch of the Rowland geometry on the left; on the right the instrument response, with and without the shape error, and the reflectivity curve of the bent crystal. <a href="img/fig/rb-window.webp" target="_blank">Full size</a></figcaption></figure></div>
+      <div class="view" id="view-rb-budget" data-tab="Resolution budget"><figure class="figcard"><a href="img/fig/rb-budget.webp" target="_blank" aria-label="Resolution budget: open the figure at full size"><img src="img/fig/rb-budget.webp" alt="Bar chart of the FWHM after each step, from 111 meV with the source size to 1113 meV with all the effects, above the response curves of the steps" width="1800" height="900" loading="lazy"></a><figcaption><b>Resolution budget.</b> The same rays traced with one effect added at a time: geometry with a point source, source size, intrinsic reflectivity curve, in-plane strain of the bent wafer, shape error. <a href="img/fig/rb-budget.webp" target="_blank">Full size</a></figcaption></figure></div>
+      <div class="view" id="view-rb-rays" data-tab="Ray paths"><figure class="figcard"><a href="img/fig/rb-rays.webp" target="_blank" aria-label="Ray paths: open the figure at full size"><img src="img/fig/rb-rays.webp" alt="The Rowland circle with source, analyser, detector and 300 traced rays, beside the reflected bundle near the detector in the dispersive and sagittal directions" width="1800" height="1008" loading="lazy"></a><figcaption><b>Ray paths.</b> The Rowland plane to scale with the sampled rays, shaded by their energy shift, and the reflected bundle near the detector in the dispersive and sagittal directions. <a href="img/fig/rb-rays.webp" target="_blank">Full size</a></figcaption></figure></div>
+      <div class="view" id="view-rb-maps" data-tab="Maps over the crystal"><figure class="figcard"><a href="img/fig/rb-maps.webp" target="_blank" aria-label="Maps over the crystal: open the figure at full size"><img src="img/fig/rb-maps.webp" alt="Four maps over the circular face of the analyser: energy shift from the strain of ideal bending, synthetic shape error, strain with the shape error, energy shift with all the effects" width="1800" height="1440" loading="lazy"></a><figcaption><b>Maps over the crystal.</b> Over the 100 mm face of the analyser: energy shift from the in-plane strain of the ideally bent wafer, a synthetic shape error, the strain with the shape error, and the mean reflected energy with all effects. <a href="img/fig/rb-maps.webp" target="_blank">Full size</a></figcaption></figure></div>
+    </div>
+  </div>
+</section>
+<section class="sec white">
   <div class="wrap">
     <div class="sec-head">
       <h2 class="h2 ruled">What it covers</h2>
@@ -80,32 +103,18 @@
     </table></div>
   </div>
 </section>
-<section class="sec white">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2 class="h2 ruled">Results of a run</h2>
-      <p>Three of the result views, for the same analyser.</p>
-    </div>
-    <div class="rb-figs">
-      <figure class="figcard"><img src="img/fig/rb-budget.webp" alt="Resolution budget of a run" loading="lazy"><figcaption><b>Resolution budget of a run.</b> The same rays traced with one effect added at a time: geometry with a point source, source size, intrinsic reflectivity curve, in-plane strain of the bent wafer, shape error. Here a 1 m spherically bent Si(555) analyser at 9982 eV.</figcaption></figure>
-      <figure class="figcard"><img src="img/fig/rb-rays.webp" alt="Ray paths" loading="lazy"><figcaption><b>Ray paths.</b> The Rowland plane to scale with the sampled rays, shaded by their energy shift, and the reflected bundle near the detector in the dispersive and sagittal directions.</figcaption></figure>
-      <figure class="figcard"><img src="img/fig/rb-maps.webp" alt="Maps over the crystal" loading="lazy"><figcaption><b>Maps over the crystal.</b> Over the 100 mm face of the analyser: energy shift from the in-plane strain of the ideally bent wafer, a synthetic shape error, the strain with the shape error, and the mean reflected energy with all effects.</figcaption></figure>
-    </div>
-  </div>
-</section>
-<section class="sec">
+<section class="sec" id="get">
   <div class="wrap about">
     <div class="just">
       <h2 class="h2 ruled">Implementation and availability</h2>
       <p>RowlandBench is written in Python, with a Qt inter­face (PySide6), plots in Matplotlib and a three-di­men­sion­al view in PyVista. Crystal data come from xraylib, the re­flec­tiv­i­ty of bent crys­tals from the Takagi–Taupin solver pyTTE, <span class="nw">X-ray</span> tube spectra from SpekPy. A Python API gives scripts the same calcula­tions as the window, and the installed program runs them without opening it. Its results are com­pared with published measure­ments and calcula­tions for strip-bent, diced and asymmetric spheri­cally bent analysers.</p>
       <p>The program is distributed as an installer for 64-bit Windows, under a free academic licence for universities and public research institu­tions. The article that describes it is in prepara­tion.</p>
-      <p>The present version is a beta (0.2.2 beta 1, 402 MB). The installer needs no adminis­trator rights. On first start a 30-day trial licence begins; a per­manent academic licence will be given with the next, more mature version, in the coming weeks. Reports of errors and comments are welcome.</p>
-      <p class="about-more"><a class="arrow" href="https://github.com/crystal-bond/crystal-bond.github.io/releases/download/v0.2.2-beta1/RowlandBench-0.2.2-beta1-setup.exe">Download RowlandBench 0.2.2 beta 1 for Windows</a></p>
-      <p class="about-more"><a class="arrow" href="https://youtu.be/MmRnDn64GnQ">Video: setting up a RIXS case</a></p>
-      <p class="about-more"><a class="arrow" href="mailto:andrea.mazzolari@unife.it?subject=RowlandBench">Write to the author</a></p>
+      <p>The present version is a beta (0.2.2 beta 1, 402 MB). The installer needs no administrator rights. On first start a 30-day trial licence begins; a permanent academic licence will be given with the next, more mature version, in the coming weeks. Reports of errors and comments are welcome.</p>
+      <p class="about-more actions"><a class="btn btn-fill" href="https://github.com/crystal-bond/crystal-bond.github.io/releases/download/v0.2.2-beta1/RowlandBench-0.2.2-beta1-setup.exe">Download RowlandBench 0.2.2 beta 1 for Windows</a><a class="btn btn-line" href="mailto:andrea.mazzolari@unife.it?subject=RowlandBench">Write to the author</a></p>
     </div>
     <dl class="factsheet" aria-label="RowlandBench data">
       <dt>Author</dt><dd>Andrea Mazzolari, University of Ferrara and INFN Ferrara</dd>
+      <dt>Version</dt><dd>0.2.2 beta 1</dd>
       <dt>Language</dt><dd>Python, Qt 6 interface</dd>
       <dt>Interfaces</dt><dd>desktop window, Python API for scripts</dd>
       <dt>Platform</dt><dd>Windows, 64 bit</dd>
@@ -134,6 +143,6 @@
     </div>
   </div>
 </footer>
-<script src="bond.js?v=73d1dc19" defer onerror="document.documentElement.classList.replace('js', 'no-js')"></script>
+<script src="bond.js?v=43096b1b" defer onerror="document.documentElement.classList.replace('js', 'no-js')"></script>
 </body>
 </html>

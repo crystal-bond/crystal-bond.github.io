@@ -1,11 +1,62 @@
 // Crystal BOND: entrances of the sections, navigation state, phone menu, the film and the field of points of the home page.
 
+// Views of a run (RowlandBench page): the figures become tabs, one large figure at a time. Without script they follow one another.
+(function () {
+  [].forEach.call(document.querySelectorAll('.views'), function (box) {
+    var views = [].slice.call(box.querySelectorAll('.view'));
+    if (views.length < 2) return;
+    var list = document.createElement('div');
+    list.className = 'view-tabs';
+    list.setAttribute('role', 'tablist');
+    list.setAttribute('aria-label', box.getAttribute('data-label') || 'Views');
+    var show = function (n, byUser) {
+      views.forEach(function (v, i) {
+        v.hidden = i !== n;
+        tabs[i].setAttribute('aria-selected', i === n ? 'true' : 'false');
+        tabs[i].tabIndex = i === n ? 0 : -1;
+      });
+      if (byUser) box.classList.add('swapped');
+    };
+    var tabs = views.map(function (v, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.id = v.id + '-tab';
+      b.textContent = v.getAttribute('data-tab');
+      b.setAttribute('role', 'tab');
+      b.setAttribute('aria-controls', v.id);
+      v.setAttribute('role', 'tabpanel');
+      v.setAttribute('aria-labelledby', b.id);
+      // the picture of a view starts loading as soon as its tab is pointed at
+      var warm = function () { var im = v.querySelector('img'); if (im) im.loading = 'eager'; };
+      b.addEventListener('pointerenter', warm);
+      b.addEventListener('focus', warm);
+      b.addEventListener('click', function () { show(i, true); });
+      list.appendChild(b);
+      return b;
+    });
+    list.addEventListener('keydown', function (e) {
+      var i = tabs.indexOf(document.activeElement), n = i;
+      if (i < 0) return;
+      if (e.key === 'ArrowRight') n = (i + 1) % tabs.length;
+      else if (e.key === 'ArrowLeft') n = (i + tabs.length - 1) % tabs.length;
+      else if (e.key === 'Home') n = 0;
+      else if (e.key === 'End') n = tabs.length - 1;
+      else return;
+      e.preventDefault();
+      show(n, true);
+      tabs[n].focus();
+    });
+    box.insertBefore(list, views[0]);
+    show(0, false);
+  });
+})();
+
 // Entrances: the parts of a section (heading, text, figures, cards) come in one after the other, once, as they reach the
 // viewport. The parts are chosen here; until they are marked, base.css keeps the sections under the header unseen, so the
 // finished page never flashes first. With reduced motion, or without IntersectionObserver, nothing is hidden.
 (function () {
   var PARTS = ['.ticker li', '.sec-head > *', '.sec .just > *', '.factsheet', '.figcard', 'figure.photo', '.obj', '.news-list > li',
-    '.consortium > li', '.logo-strip', '.contact-in > *', '.table-wrap', '.wps > li', '.gantt', '.g-legend', '.dev-side', '.tpanel',
+    '.consortium > li', '.logo-strip', '.contact-in > *', '.table-wrap', '.modes > *', '.view-tabs', '.wps > li', '.gantt', '.g-legend', '.dev-side', '.tpanel',
     '.tl-year', '.tl-item', '.glance > div', '.bars > li', '.pubs > li', '.coord', '.unit', '.supp > li'].join(',');
   try {
     if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;

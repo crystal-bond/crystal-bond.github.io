@@ -50,7 +50,7 @@
 .i-hero .actions { margin-top: 32px; }
 .p-head h1 { margin-top: 14px; font-size: var(--fs-h1); letter-spacing: -0.025em; }
 .p-head h1::before { content: ""; display: block; width: 48px; height: 3px; background: var(--gold); margin-bottom: 18px; }
-.p-head-text > p:last-child { margin-top: 16px; font-size: var(--fs-lead); color: var(--on-dark-2); max-width: 50ch; }
+.p-head-text > h1 + p { margin-top: 16px; font-size: var(--fs-lead); color: var(--on-dark-2); max-width: 50ch; }
 .crumbs { font-size: var(--fs-small); color: var(--on-dark); }
 .crumbs a { color: var(--on-dark); text-decoration: none; }
 .crumbs a:hover { color: #fff; text-decoration: underline; }
@@ -356,10 +356,6 @@ body::before { background: #0b0b0d; }
   .brand img { height: 40px; }
 }
 /* RowlandBench: result views */
-.rb-figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 24px; align-items: start; }
-.rb-figs .figcard img { width: 100%; height: auto; }
-.rb-figs figcaption b { color: var(--ink); }
-.p-head-photo img[src*="rb-head"] { object-position: left center; }
 /* ---------- statistics page: one series everywhere, in ink; red only for the bar under the pointer ---------- */
 .stats-head { grid-template-columns: 1fr; }
 .stats-note, .stats-updated { color: var(--muted); font-size: var(--fs-ui); }
@@ -456,3 +452,40 @@ body::before { background: #0b0b0d; }
 .film-btn { position: absolute; right: 14px; bottom: 14px; width: 44px; height: 44px; display: grid; place-items: center; padding: 0; background: rgba(14,14,15,.72); color: #fff; border: 1px solid rgba(255,255,255,.45); border-radius: 2px; cursor: pointer; transition: background .2s ease; }
 .film-btn:hover { background: #0e0e0f; }
 .film-btn svg { width: 16px; height: 16px; }
+
+/* ---------- RowlandBench page ---------- */
+/* the head shows one plot of the program, whole, on its own white ground */
+.p-head-photo:has(img[src*="rb-head"]) { background: #fff; }
+.p-head-photo img[src*="rb-head"] { object-fit: contain; padding: clamp(14px, 2.4vw, 36px); }
+.p-head .actions { margin-top: 28px; }
+.about b { color: var(--ink); }
+/* three kinds of measurement, beside the text */
+.modes h3 { font-size: var(--fs-h3); color: var(--navy); letter-spacing: -0.01em; }
+.modes > p { margin-top: 10px; margin-bottom: 22px; }
+.modes > p.about-more { margin: 18px 0 0; }
+.about .actions .btn { text-align: center; }
+.modes .factsheet { grid-template-columns: 5.5em 1fr; }
+.modes .factsheet dt { color: var(--ink); font-size: var(--fs-ui); font-weight: 700; padding-top: 13px; }
+.modes .factsheet dd { font-weight: 400; color: var(--ink-2); }
+@media (min-width: 961px) { .modes { position: sticky; top: calc(var(--nav-h) + 28px); padding-top: 21px; } }
+/* views of a run: tabs made by bond.js, one large figure at a time; without script the figures follow one another */
+.view + .view { margin-top: 24px; }
+.view[hidden] + .view, .view + .view[hidden] { margin-top: 0; }
+.view-tabs { display: flex; flex-wrap: wrap; gap: 0 clamp(20px, 3vw, 40px); border-bottom: 2px solid var(--navy); margin-bottom: 24px; }
+.view-tabs button { appearance: none; background: none; border: 0; border-bottom: 3px solid transparent; margin-bottom: -2px; padding: 12px 0 11px; min-height: 44px; font: inherit; font-size: var(--fs-ui); font-weight: 600; color: var(--muted); cursor: pointer; transition: color .2s ease, border-color .2s ease; }
+.view-tabs button:hover { color: var(--ink); }
+.view-tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--gold); }
+.view .figcard > a { display: block; cursor: zoom-in; }
+.view .figcard img { display: block; width: auto; max-width: 100%; height: auto; max-height: min(80vh, 780px); margin-inline: auto; }
+.view figcaption { max-width: 86ch; margin-top: 14px; }
+.view figcaption b { color: var(--ink); }
+.view figcaption a { font-weight: 600; white-space: nowrap; margin-left: .35em; }
+.views.swapped .view:not([hidden]) .figcard > a { animation: view-in .4s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes view-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (max-width: 600px) {
+  .view-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; border-bottom: 0; }
+  .view-tabs button { margin-bottom: 0; text-align: left; border-bottom: 2px solid var(--line-2); }
+  .view .figcard img { max-height: none; }
+}
+@media print { .view[hidden] { display: block !important; } .view-tabs { display: none; } }
+@media (max-width: 460px) { .modes .factsheet { grid-template-columns: 1fr; } .modes .factsheet dt { padding-top: 15px; } }
