@@ -127,7 +127,7 @@ const LOGOS = [['cern.png', 'CERN'], ['esrf.png', 'ESRF'], ['xfel.png', 'Europea
 page('index.html', 'Crystal BOND · INFN research project on bonded bent crystals', 'BOND is a research project of INFN National Scientific Committee 5 (2025–2027) on bent crystals bonded to figured substrates, for the LHC, X-ray spectroscopy and imaging, and Laue lenses.', `
 <section class="i-hero on-dark" aria-label="Crystal BOND">
   <div class="i-hero-text">
-    <p class="kicker rise">Istituto Nazionale di Fisica Nucleare · National Scientific Committee 5</p>
+    <p class="kicker rise"><span>Istituto Nazionale di Fisica Nucleare</span> <span>National Scientific Committee 5</span></p>
     <h1 class="rise d1">Crystal BOND</h1>
     <p class="i-sub rise d1">Bonded bent crystals for particle accelerators, synchrotron <span class="nw">X-ray</span> optics and γ-ray astronomy</p>
     <p class="i-lead rise d2">A three-year INFN research project, 2025–2027, carried out by the Ferrara, Legnaro, Trieste and Frascati units and coordinated by INFN Ferrara.</p>
@@ -244,13 +244,13 @@ ${pHead('Project', 'The project', 'BOND, Crystal BOND, is a research project of 
       <h2 class="h2 ruled">Planned assemblies</h2>
       <p>Four assemblies, each for its own job, from the same bonding platform.</p>
     </div>
-    <div class="table-wrap"><table class="spec-table">
+    <div class="table-wrap"><table class="spec-table stack">
       <thead><tr><th scope="col">Assembly</th><th scope="col">Purpose</th><th scope="col">Radius</th><th scope="col">Shape</th><th scope="col">Miscut</th><th scope="col">Materials</th></tr></thead>
       <tbody>
-        <tr><th scope="row"><a href="devices.html#steer">A1</a></th><td>Steering charged particle beams of about 1 TeV</td><td>10 m</td><td>rectangular, convex, about 70 × 20 × 3 mm</td><td>&lt; 100 µrad</td><td>silicon</td></tr>
-        <tr><th scope="row"><a href="devices.html#analyse">A2.1</a></th><td>Bonded bent crystal analysers</td><td>0.1–1 m</td><td>spherical or cylindrical, concave, Ø ≈ 100 mm</td><td>not critical</td><td>germanium, quartz, lithium niobate</td></tr>
-        <tr><th scope="row"><a href="devices.html#image">A2.2</a></th><td>Spectral imaging</td><td>0.1–0.5 m</td><td>cylindrical, concave</td><td>not critical</td><td>silicon, germanium</td></tr>
-        <tr><th scope="row"><a href="devices.html#focus">A3</a></th><td>Concentrator for hard X-rays above 100 keV</td><td>20 m</td><td>about 10 convex tiles, 30 × 20 × 2 mm each</td><td>uniform within a few µrad</td><td>silicon, germanium</td></tr>
+        <tr><th scope="row"><a href="devices.html#steer">A1</a></th><td class="lead">Steering charged particle beams of about 1 TeV</td><td data-label="Radius">10 m</td><td data-label="Shape">rectangular, convex, about 70 × 20 × 3 mm</td><td data-label="Miscut">&lt; 100 µrad</td><td data-label="Materials">silicon</td></tr>
+        <tr><th scope="row"><a href="devices.html#analyse">A2.1</a></th><td class="lead">Bonded bent crystal analysers</td><td data-label="Radius">0.1–1 m</td><td data-label="Shape">spherical or cylindrical, concave, Ø ≈ 100 mm</td><td data-label="Miscut">not critical</td><td data-label="Materials">germanium, quartz, lithium niobate</td></tr>
+        <tr><th scope="row"><a href="devices.html#image">A2.2</a></th><td class="lead">Spectral imaging</td><td data-label="Radius">0.1–0.5 m</td><td data-label="Shape">cylindrical, concave</td><td data-label="Miscut">not critical</td><td data-label="Materials">silicon, germanium</td></tr>
+        <tr><th scope="row"><a href="devices.html#focus">A3</a></th><td class="lead">Concentrator for hard X-rays above 100 keV</td><td data-label="Radius">20 m</td><td data-label="Shape">about 10 convex tiles, 30 × 20 × 2 mm each</td><td data-label="Miscut">uniform within a few µrad</td><td data-label="Materials">silicon, germanium</td></tr>
       </tbody>
     </table></div>
   </div>
@@ -424,7 +424,7 @@ ${pHead('RowlandBench', 'RowlandBench', 'A desktop program for the design and si
       <h2 class="h2 ruled">What it covers</h2>
       <p>Analysers, materials and readouts that can be simulated.</p>
     </div>
-    <div class="table-wrap"><table class="spec-table" style="min-width:560px">
+    <div class="table-wrap"><table class="spec-table stack">
       <tbody>
         <tr><th scope="row">Analysers</th><td>Johann (cylindrical, spherical, toroidal), Johansson, diced, strip-bent, sliced, von Hámos; asymmetric reflections</td></tr>
         <tr><th scope="row">Arrays</th><td>up to 72 crystals (12 columns, 8 rows), with a common or separate focus and individual misalignments</td></tr>
@@ -482,13 +482,13 @@ page('stats.html', 'Visit statistics · Crystal BOND', 'Visit statistics of the 
 fs.writeFileSync(path.join(ROOT, 'stats.html'), fs.readFileSync(path.join(ROOT, 'stats.html'), 'utf8').replace('<meta name="description"', '<meta name="robots" content="noindex, nofollow">\n<meta name="description"'));
 
 // ---------------------------------------------------------------- team
-page('team.html', 'Team · Crystal BOND', 'The four INFN units of BOND, its people, work-package leaders and the institutions that support the project.', `
+page('team.html', 'Team · Crystal BOND', 'The four INFN units of BOND, their local coordinators, the work-package leaders and the institutions that support the project.', `
 ${pHead('Team', 'Consortium and people', 'Physicists, engineers and technicians of four INFN units, with the universities of Ferrara, Padova and Trieste.', 'group-ferrara.jpg', 'The Ferrara group in its laboratory')}
 <section class="sec">
   <div class="wrap">
     <div class="coord"><span>National coordinator</span><b>Andrea Mazzolari</b><span>INFN and University of Ferrara · <a href="mailto:${CONTACT}">${CONTACT}</a></span></div>
     <div class="units">
-${UNITS.map(u => `      <article class="unit" id="${u.id}"><div class="unit-top"><span class="unit-city">${esc(u.city.split(' (')[0])}</span><span class="unit-name">${esc(u.name)}</span></div><p class="unit-role">${esc(u.role)}</p><p class="unit-text">${esc(u.text)}</p><div class="unit-who"><dl><dt>Local coordinator</dt><dd class="lead-name">${esc(u.lead)}</dd><dt>With</dt><dd>${u.people.map(esc).join(', ')}</dd></dl></div></article>`).join('\n')}
+${UNITS.map(u => `      <article class="unit" id="${u.id}"><div class="unit-top"><span class="unit-city">${esc(u.city.split(' (')[0])}</span><span class="unit-name">${esc(u.name)}</span></div><p class="unit-role">${esc(u.role)}</p><p class="unit-text">${esc(u.text)}</p><div class="unit-who"><dl><dt>Local coordinator</dt><dd class="lead-name">${esc(u.lead)}</dd></dl></div></article>`).join('\n')}
     </div>
   </div>
 </section>
@@ -498,10 +498,10 @@ ${UNITS.map(u => `      <article class="unit" id="${u.id}"><div class="unit-top"
       <h2 class="h2 ruled">Work-package leaders</h2>
       <p><a class="arrow" href="project.html">The work packages in detail</a></p>
     </div>
-    <div class="table-wrap"><table class="spec-table" style="min-width:560px">
+    <div class="table-wrap"><table class="spec-table stack">
       <thead><tr><th scope="col">WP</th><th scope="col">Topic</th><th scope="col">Leader</th><th scope="col">Unit</th></tr></thead>
       <tbody>
-${WPS.map(([n, t, lead, unit]) => `        <tr><th scope="row">${n}</th><td>${esc(t)}</td><td><b>${esc(lead)}</b></td><td>${esc(unit)}</td></tr>`).join('\n')}
+${WPS.map(([n, t, lead, unit]) => `        <tr><th scope="row">${n}</th><td class="lead">${esc(t)}</td><td data-label="Leader"><b>${esc(lead)}</b></td><td data-label="Unit">${esc(unit)}</td></tr>`).join('\n')}
       </tbody>
     </table></div>
   </div>
@@ -513,7 +513,7 @@ ${WPS.map(([n, t, lead, unit]) => `        <tr><th scope="row">${n}</th><td>${es
       <p>Laboratories, universities and a company that wrote in support of the project and are interested in its crystals.</p>
     </div>
     <ul class="supp">
-${SUPPORT.map(([logo, name, city, text]) => `      <li><div class="logo">${logo ? `<img src="img/logos/${logo}" alt="" loading="lazy">` : `<span class="wordmark">${esc(name)}</span>`}</div><h3>${esc(name)} <span>· ${esc(city)}</span></h3><p>${esc(text)}</p></li>`).join('\n')}
+${SUPPORT.map(([logo, name, city, text]) => (logo ? `      <li><div class="logo"><img src="img/logos/${logo}" alt="" loading="lazy"></div><h3>${esc(name)} <span>· ${esc(city)}</span></h3><p>${esc(text)}</p></li>` : `      <li class="nologo"><h3>${esc(name)}</h3><p class="city">${esc(city)}</p><p>${esc(text)}</p></li>`)).join('\n')}
     </ul>
   </div>
 </section>`);

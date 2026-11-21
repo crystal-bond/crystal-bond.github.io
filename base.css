@@ -48,7 +48,7 @@
   --fs-body: 1.0625rem;
   --fs-ui: 1rem;
   --fs-small: 0.875rem;
-  --fs-tiny: 0.78rem;
+  --fs-tiny: 0.8125rem;
 
   --wrap: 1200px;
   --gutter: max(20px, env(safe-area-inset-left, 0px));
