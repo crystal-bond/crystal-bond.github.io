@@ -5,6 +5,10 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const ROOT = path.join(__dirname, '..');
+// Public address of the site, with the final slash: used where an absolute address is required (the picture shown when a
+// link is shared, sitemap.xml, robots.txt). The copy on baltig is made from the same files, so it carries this address too.
+const SITE = 'https://crystal-bond.github.io/';
+const PAGES = [];   // pages listed in sitemap.xml
 const FIG = { ...require('./figures'), ...require('./figures-bond') };
 const { DEVICES, UNITS, WPS, month, MILESTONES, STATUS, SUPPORT, P2026, P2025, RADIUS } = require('./content');
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -121,6 +125,12 @@ function page(file, title, desc, body, cls = '') {
 <meta property="og:site_name" content="Crystal BOND">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
+<meta property="og:url" content="${SITE}${file === 'index.html' ? '' : file}">
+<meta property="og:image" content="${SITE}img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Crystal BOND: bonded bent crystals for particle accelerators, synchrotron X-ray optics and γ-ray astronomy. A diced silicon wafer.">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 <body${cls ? ` class="${cls}"` : ''}>
 ${webp(`${nav(file)}\n<main id="main">\n${body}\n</main>\n${footer}`)}
@@ -128,6 +138,7 @@ ${webp(`${nav(file)}\n<main id="main">\n${body}\n</main>\n${footer}`)}
 </html>
 `;
   fs.writeFileSync(path.join(ROOT, file), dims(html));
+  if (!['404.html', 'stats.html'].includes(file)) PAGES.push(file);
 }
 
 // page header: navy band with crumb, title and lead; a photo of the project beside it
@@ -584,4 +595,13 @@ ${SUPPORT.map(([logo, name, city, text]) => (logo ? `      <li><div class="logo"
   </div>
 </section>`);
 
+// for search engines: the list of the pages, and where to find it
+const order = ['index.html', 'project.html', 'devices.html', 'technology.html', 'progress.html', 'rowlandbench.html', 'team.html'];
+PAGES.sort((a, b) => (order.indexOf(a) + 1 || 99) - (order.indexOf(b) + 1 || 99));
+fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${PAGES.map(f => `  <url><loc>${SITE}${f === 'index.html' ? '' : f}</loc></url>`).join('\n')}
+</urlset>
+`);
+fs.writeFileSync(path.join(ROOT, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE}sitemap.xml\n`);
 console.log('built', fs.readdirSync(ROOT).filter(f => f.endsWith('.html')).join(' '));

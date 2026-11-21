@@ -1,0 +1,37 @@
+<!doctype html>
+<!-- The picture shown when the address of the site is pasted in a mail, a chat or a social network (img/og.jpg, 1200 × 630).
+     To redo it: open this page with the local server (http://localhost:8767/src/og-card.html) in a window 1200 × 630 and
+     save a screenshot as img/og.jpg. It is not part of the site. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<title>Crystal BOND: sharing card</title>
+<link rel="stylesheet" href="../base.css">
+<style>
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; background: #121213; }
+  .card { display: grid; grid-template-columns: 640px 560px; width: 1200px; height: 630px; color: #fff; font-family: 'IBM Plex Sans', sans-serif; }
+  .text { padding: 56px 48px 52px 64px; display: flex; flex-direction: column; background: #121213; color: #fff; }
+  .logos { display: flex; align-items: center; gap: 26px; }
+  .logos img { display: block; width: auto; }
+  .logos img:first-child { height: 58px; }
+  .logos img:last-child { height: 72px; }
+  h1 { margin: auto 0 0; white-space: nowrap; font-size: 78px; line-height: 1; font-weight: 700; letter-spacing: -0.03em; }
+  h1::before { content: ""; display: block; width: 72px; height: 5px; background: #c8102e; margin-bottom: 28px; }
+  p { margin: 22px 0 0; font-size: 33px; line-height: 1.28; font-weight: 600; letter-spacing: -0.01em; }
+  small { display: block; margin-top: 26px; font-size: 24px; color: rgba(255,255,255,.72); }
+  .photo { background: url(../img/photos/wafer-diced-close.jpg) center / cover no-repeat; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="text">
+    <div class="logos"><img src="../img/logos/infn-white.svg" alt="INFN"><img src="../img/logos/unife-white.png" alt="University of Ferrara"></div>
+    <h1>Crystal BOND</h1>
+    <p>Bonded bent crystals for particle accelerators, synchrotron X-ray optics and γ-ray astronomy</p>
+    <small>INFN CSN5 CALL · 2025–2027</small>
+  </div>
+  <div class="photo"></div>
+</div>
+</body>
+</html>
