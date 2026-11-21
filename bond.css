@@ -323,38 +323,28 @@
 .bars .bar i { background: var(--ink); }
 .tl-item::before { border-color: var(--ink); }
 .unit-tag { color: var(--muted); }
-/* header background */
-/* the header keeps the layout of the lab site, but is dark: img/nav-bg.jpg (src/make-nav-bg.js) is a bent crystal seen from
-   the side, with channeled particles; the picture is veiled under the name of the project and clear towards the links */
-.nav, .nav.solid, .nav.open, .no-js .nav {
-  background: linear-gradient(90deg, rgba(11,11,13,.94) 0, rgba(11,11,13,.88) 26%, rgba(11,11,13,.68) 55%, rgba(11,11,13,.58) 100%), #0b0b0d url(img/nav-bg.jpg) center / cover no-repeat;
-  -webkit-backdrop-filter: none; backdrop-filter: none; border-bottom: 1px solid rgba(255,255,255,.14); box-shadow: none;
-}
-.nav.solid { box-shadow: 0 6px 24px rgba(0, 0, 0, .35); }
-body::before { background: #0b0b0d; }
+/* header: on the model of the lab site, a flat bar with white text, here in the black of the project; the logos of
+   INFN and of the University of Ferrara stand before the name */
+.nav, .nav.solid, .nav.open, .no-js .nav { background: var(--navy); -webkit-backdrop-filter: none; backdrop-filter: none; border-bottom: 0; box-shadow: none; }
+body::before { background: var(--navy); }
 .brand { color: #fff; }
-.brand small { color: #cfcfcf; }
-.brand > span { border-left-color: rgba(255,255,255,.35); }
-.nav-links a { color: #ededed; text-shadow: 0 1px 6px rgba(0,0,0,.8); }
-.nav-links a:hover { color: #fff; background: rgba(255,255,255,.12); }
+.brand img { height: 34px; }
+.brand img.unife { height: 42px; }
+.brand small { color: rgba(255,255,255,.7); }
+.brand > span { border-left-color: rgba(255,255,255,.3); }
+.nav-links a { color: rgba(255,255,255,.82); }
+.nav-links a:hover { color: #fff; background: rgba(255,255,255,.1); }
 .nav-links a[aria-current="page"] { color: #fff; }
+.nav-links a[aria-current="page"]::after { background: var(--gold); }
 .menu-btn { color: #fff; }
 .nav :focus-visible { outline-color: var(--accent-soft); }
 @media (max-width: 70em) {
-  .nav-links { background: #0b0b0d; border-bottom-color: rgba(255,255,255,.14); box-shadow: 0 16px 30px rgba(0,0,0,.4); }
-  .nav-links a { border-bottom-color: rgba(255,255,255,.14); text-shadow: none; }
+  .nav-links { background: var(--navy); border-bottom-color: rgba(255,255,255,.14); box-shadow: 0 16px 30px rgba(0,0,0,.4); }
+  .nav-links a { border-bottom-color: rgba(255,255,255,.14); font-size: var(--fs-lead); font-weight: 600; }
   .no-js .nav-links { background: none; }
 }
-/* larger type in the header (wide screens; the phone menu keeps its own sizes) */
-@media (min-width: 70.01em) {
-  :root { --nav-h: 76px; }
-  .nav-links { gap: 6px; }
-  .nav-links a { font-size: 1.2rem; font-weight: 600; padding: 8px 14px; }
-  .nav-links a[aria-current="page"]::after { left: 14px; right: 14px; bottom: 2px; height: 3px; }
-  .brand { font-size: 1.3rem; }
-  .brand small { font-size: .95rem; margin-top: -2px; }
-  .brand img { height: 40px; }
-}
+@media (max-width: 520px) { .brand { gap: 10px; } .brand img { height: 28px; } .brand img.unife { height: 33px; } .brand small { display: none; } .brand > span { padding-left: 11px; margin-left: 0; } }
+@media (max-width: 359px) { .brand > span { display: none; } }
 /* RowlandBench: result views */
 /* ---------- statistics page: one series everywhere, in ink; red only for the bar under the pointer ---------- */
 .stats-head { grid-template-columns: 1fr; }
