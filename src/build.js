@@ -466,8 +466,8 @@ const RB_VIEWS = [
 ];
 const RB_MAIL = `mailto:${CONTACT}?subject=RowlandBench`;
 // the installer is an asset of a release of the site's own repository
-const RB_VERSION = '0.2.2 beta 1';
-const RB_SETUP = 'https://github.com/crystal-bond/crystal-bond.github.io/releases/download/v0.2.2-beta1/RowlandBench-0.2.2-beta1-setup.exe';
+const RB_VERSION = '0.2.2';
+const RB_SETUP = 'https://github.com/crystal-bond/crystal-bond.github.io/releases/download/v0.2.2/RowlandBench-0.2.2-setup.exe';
 const RB_VIDEO = 'https://youtu.be/MmRnDn64GnQ';
 page('rowlandbench.html', 'RowlandBench · Crystal BOND', 'RowlandBench, a desktop program for the design and simulation of X-ray spectrometers based on bent-crystal analysers: ray tracing, Takagi–Taupin reflectivity, bending strain, shape errors and tolerances.', `
 ${pHead('RowlandBench', 'RowlandBench', 'A desktop program for the design and simulation of <span class="nw">X-ray</span> spectrometers based on bent-crystal analysers.', 'rb-response.jpg', 'Instrument response computed by RowlandBench for a spherically bent silicon analyser, with and without its shape error: 1113 meV wide in both cases',
@@ -532,7 +532,7 @@ ${RB_VIEWS.map(([f, w, h, tab, alt, t, c]) => `      <div class="view" id="view-
       <h2 class="h2 ruled">Implementation and availability</h2>
       <p>RowlandBench is written in Python, with a Qt interface (PySide6), plots in Matplotlib and a three-dimensional view in PyVista. Crystal data come from xraylib, the reflectivity of bent crystals from the Takagi–Taupin solver pyTTE, <span class="nw">X-ray</span> tube spectra from SpekPy. A Python API gives scripts the same calculations as the window, and the installed program runs them without opening it. Its results are compared with published measurements and calculations for strip-bent, diced and asymmetric spherically bent analysers.</p>
       <p>The program is distributed as an installer for 64-bit Windows, under a free academic licence for universities and public research institutions. The article that describes it is in preparation.</p>
-      <p>The present version is a beta (${RB_VERSION}, 402 MB). The installer needs no administrator rights. On first start a 30-day trial licence begins; a permanent academic licence will be given with the next, more mature version, in the coming weeks. Reports of errors and comments are welcome.</p>
+      <p>The present version is ${RB_VERSION} (402 MB). The installer needs no administrator rights. On first start a 30-day trial licence begins; a permanent academic licence will be given with the next, more mature version, in the coming weeks. Reports of errors and comments are welcome.</p>
       <p class="about-more actions"><a class="btn btn-fill" href="${RB_SETUP}">Download RowlandBench ${RB_VERSION} for Windows</a><a class="btn btn-line" href="${RB_MAIL}">Write to the author</a></p>
     </div>
     <dl class="factsheet" aria-label="RowlandBench data">
