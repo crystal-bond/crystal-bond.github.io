@@ -466,8 +466,8 @@ const RB_VIEWS = [
 ];
 const RB_MAIL = `mailto:${CONTACT}?subject=RowlandBench`;
 // the installer is an asset of a release of the site's own repository
-const RB_VERSION = '0.2.2';
-const RB_SETUP = 'https://github.com/crystal-bond/crystal-bond.github.io/releases/download/v0.2.2/RowlandBench-0.2.2-setup.exe';
+const RB_VERSION = '0.2.3';
+const RB_SETUP = 'https://github.com/crystal-bond/crystal-bond.github.io/releases/download/v0.2.3/RowlandBench-0.2.3-setup.exe';
 const RB_VIDEO = 'https://youtu.be/MmRnDn64GnQ';
 page('rowlandbench.html', 'RowlandBench · Crystal BOND', 'RowlandBench, a desktop program for the design and simulation of X-ray spectrometers based on bent-crystal analysers: ray tracing, Takagi–Taupin reflectivity, bending strain, shape errors and tolerances.', `
 ${pHead('RowlandBench', 'RowlandBench', 'A desktop program for the design and simulation of <span class="nw">X-ray</span> spectrometers based on bent-crystal analysers.', 'rb-response.jpg', 'Instrument response computed by RowlandBench for a spherically bent silicon analyser, with and without its shape error: 1113 meV wide in both cases',
